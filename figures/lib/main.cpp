@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "RandomFigureFactory.h"
-#include "ReadFromFileFigureFactory.h"
+#include "ReadFromStreamFigureFactory.h"
 
 int main2()
 {
@@ -16,42 +16,45 @@ int main2()
 
 	if (choice == 0)
 	{
-		factory = new RandomFigureFactory();
-
-		std::cout << R"(Please choose figure type: ["circle" for circle, "triangle" for triangle]: )";
-
-		Figure* f = factory->createFigure(std::cin);
-		while (f)
+		//factory = new RandomFigureFactory();
+		for (int i = 0; i < 10; i++)
 		{
-			figures.push_back(f);
-			f = factory->createFigure(std::cin);
+			figures.push_back(factory->createFigure());
 		}
+	}
+	else if (choice == 1)
+	{
+		std::string fileName;
+		std::cout << "Please enter file name: ";
+		std::cin >> fileName;
+		std::ifstream in(fileName);
+		if (!in)
+		{
+			std::cout << "Could not open file.\n";
+			return 1;
+		}
+		factory = new ReadFromStreamFigureFactory(in);
+		while (in)
+		{
+			figures.push_back(factory->createFigure());
+		}
+		in.close();
+	}
+	else
+	{
+		std::cout << "Invalid factory type.\n";
 
 	}
 	else if (choice == 1)
 	{
-		factory = new ReadFromFileFigureFactory();
-		std::cout << "Enter file name: ";
-		std::string fileName;
-		std::cin >> fileName;
-		std::ifstream in(fileName);
-
-		while (in)
-		{
-			Figure* figure = factory->createFigure(in);
-			figures.push_back(figure);
-		}
+		
 	}
 	else
 	{
 		std::cout << "Invalid factory type.\n";
 	}
 
-	for (size_t i = 0; i < figures.size(); i++)
-	{
-		std::cout << figures[i]->toString() << " perimeter: " << figures[i]->getPerimeter() << "\n";
-		delete figures[i];
-	}
+	
 
 	return 0;
 }

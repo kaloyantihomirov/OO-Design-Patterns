@@ -8,10 +8,12 @@ class Triangle : public Figure
 	double b;
 	double c;
 
-	mutable std::string strRepresentation;
+	std::string strRepresentation;
+
+	void setStrRepresentation();
 public:
 	Triangle(double a, double b, double c);
 	double getPerimeter() const override;
 	std::string toString() const override;
-	void readFromStream(std::istream&) override;
+	Triangle* clone() const override;
 };

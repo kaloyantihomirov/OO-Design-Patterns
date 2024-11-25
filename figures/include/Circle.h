@@ -13,5 +13,5 @@ public:
 	explicit Circle(double radius);
 	double getPerimeter() const override;
 	std::string toString() const override;
-	void readFromStream(std::istream&) override;
+	Circle* clone() const override;
 };

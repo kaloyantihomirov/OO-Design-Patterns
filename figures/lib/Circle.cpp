@@ -37,10 +37,7 @@ std::string Circle::toString() const
 	return strRepresentation;
 }
 
-void Circle::readFromStream(std::istream& in)
+Circle* Circle::clone() const
 {
-	double r;
-	in >> r;
-	this->radius = r;
-	setStrRepresentation();
+	return new Circle(*this);
 }

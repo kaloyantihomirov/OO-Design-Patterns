@@ -8,5 +8,5 @@ public:
 	virtual double getPerimeter() const = 0;
 	virtual ~Figure() = default;
 	virtual std::string toString() const = 0;
-	virtual void readFromStream(std::istream&) = 0;
+	virtual Figure* clone() const = 0;
 };

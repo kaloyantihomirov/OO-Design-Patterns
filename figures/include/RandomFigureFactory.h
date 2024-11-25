@@ -6,7 +6,7 @@
 
 class RandomFigureFactory : public FigureFactory
 {
-public:
-	Triangle* createTriangle(std::istream& in) const override;
-	Circle* createCircle(std::istream& in) const override;
+protected:
+	Triangle* createTriangle(std::istream& in) const ;
+	Circle* createCircle(std::istream& in) const ;
 };

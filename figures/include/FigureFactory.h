@@ -1,13 +1,10 @@
 #pragma once
 
-#include "Circle.h"
-#include "Triangle.h"
+#include "Figure.h"
 
 class FigureFactory
 {
 public:
-	Figure* createFigure(std::istream&) const;
-	virtual Triangle* createTriangle(std::istream&) const = 0;
-	virtual Circle* createCircle(std::istream&) const = 0;
+	virtual Figure* createFigure() = 0;
 	virtual ~FigureFactory() = default;
 };

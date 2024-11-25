@@ -5,6 +5,13 @@
 #include "Triangle.h"
 #include "DoubleNumsHelper.h"
 
+void Triangle::setStrRepresentation()
+{
+	std::ostringstream oss;
+	oss << "triangle " << a << " " << b << " " << c;
+	strRepresentation = oss.str();
+}
+
 Triangle::Triangle(double a, double b, double c) 
 {
 	if (a <= 0 || b <= 0 || c <= 0)
@@ -25,6 +32,7 @@ Triangle::Triangle(double a, double b, double c)
 	this->a = a;
 	this->b = b;
 	this->c = c;
+	setStrRepresentation();
 }
 
 double Triangle::getPerimeter() const
@@ -34,24 +42,10 @@ double Triangle::getPerimeter() const
 
 std::string Triangle::toString() const
 {
-	if (strRepresentation.empty())
-	{
-		std::ostringstream oss;
-		oss << "triangle " << a << " " << b << " " << c;
-		strRepresentation = oss.str();
-	}
-
 	return strRepresentation;
 }
 
-void Triangle::readFromStream(std::istream& in)
+Triangle* Triangle::clone() const
 {
-	int a;
-	int b;
-	int c;
-	in >> a >> b >> c;
-	this->a = a;
-	this->b = b;
-	this->c = c;
-	//TODO: set triangle str representation
+	return new Triangle(*this);
 }

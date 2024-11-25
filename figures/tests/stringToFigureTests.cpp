@@ -3,7 +3,7 @@
 #include "StringToFigure.h"
 #include "catch_amalgamated.hpp"
 
-TEST_CASE("Creating a circle from string representation")
+TEST_CASE("Creating a circle from string representation works correctly")
 {
 	std::string circleStr = "circle 5";
 	Figure* circle = StringToFigure::createFrom(circleStr);
@@ -53,6 +53,59 @@ TEST_CASE("Creating a circle throws when given negative radius")
 {
 	std::string circleStr = "circle -5";
 	REQUIRE_THROWS_AS(StringToFigure::createFrom(circleStr), std::invalid_argument);
+}
+
+TEST_CASE("Creating a triangle from string representation works correctly")
+{
+	std::string triangleStr = "triangle 3 4 5";
+	Figure* triangle = StringToFigure::createFrom(triangleStr);
+	REQUIRE(triangle->toString() == "triangle 3 4 5");
+	REQUIRE(abs(triangle->getPerimeter() - 12) <= std::numeric_limits<double>::epsilon());
+	delete triangle;
+}
+
+TEST_CASE("Creating a triangle throws when params provided in representation are less than 3")
+{
+	SECTION("Two dimensions given")
+	{
+		std::string triangleStr = "triangle 3 4";
+		REQUIRE_THROWS_AS(StringToFigure::createFrom(triangleStr), std::invalid_argument);
+	}
+	SECTION("One dimension given")
+	{
+		std::string triangleStr = "triangle 3";
+		REQUIRE_THROWS_AS(StringToFigure::createFrom(triangleStr), std::invalid_argument);
+	}
+	SECTION("One dimension which is str given")
+	{
+		std::string triangleStr = "triangle dim1";
+		REQUIRE_THROWS_AS(StringToFigure::createFrom(triangleStr), std::invalid_argument);
+	}
+	SECTION("No dimension given")
+	{
+		std::string triangleStr = "triangle";
+		REQUIRE_THROWS_AS(StringToFigure::createFrom(triangleStr), std::invalid_argument);
+	}
+}
+
+TEST_CASE("Creating a triangle throws when params provided in representation are 4")
+{
+	std::string triangleStr = "triangle 3 4 5 6";
+	REQUIRE_THROWS_AS(StringToFigure::createFrom(triangleStr), std::invalid_argument);
+}
+
+TEST_CASE("Creating a triangle throws when some of the params provided in representation are not numbers")
+{
+	SECTION("Second and third are not numbers")
+	{
+		std::string triangleStr = "triangle 3 dim2 dim3";
+		REQUIRE_THROWS_AS(StringToFigure::createFrom(triangleStr), std::invalid_argument);
+	}
+	SECTION("First is not a number")
+	{
+		std::string triangleStr = "triangle 3D 2 3";
+		REQUIRE_THROWS_AS(StringToFigure::createFrom(triangleStr), std::invalid_argument);
+	}
 }
 
 TEST_CASE("Creating a figure fails for empty figure type")
