@@ -1,10 +1,8 @@
+#include <iostream>
 #include <stdexcept>
 #include <sstream>
 
 #include "Triangle.h"
-
-#include <iostream>
-
 #include "DoubleNumsHelper.h"
 
 Triangle::Triangle(double a, double b, double c) 
