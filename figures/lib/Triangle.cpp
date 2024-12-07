@@ -12,7 +12,7 @@ void Triangle::setStrRepresentation()
 	strRepresentation = oss.str();
 }
 
-Triangle::Triangle(double a, double b, double c) 
+Triangle::Triangle(int a, int b, int c) 
 {
 	if (a <= 0 || b <= 0 || c <= 0)
 	{
@@ -45,7 +45,7 @@ std::string Triangle::toString() const
 	return strRepresentation;
 }
 
-Triangle* Triangle::clone() const
+std::unique_ptr<Figure> Triangle::clone() const
 {
-	return new Triangle(*this);
+	return std::make_unique<Triangle>(*this);
 }

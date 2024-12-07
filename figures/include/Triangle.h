@@ -4,16 +4,14 @@
 
 class Triangle : public Figure
 {
-	double a;
-	double b;
-	double c;
-
-	std::string strRepresentation;
+	int a;
+	int b;
+	int c;
 
 	void setStrRepresentation();
 public:
-	Triangle(double a, double b, double c);
+	Triangle(int a, int b, int c);
 	double getPerimeter() const override;
 	std::string toString() const override;
-	Triangle* clone() const override;
+	std::unique_ptr<Figure> clone() const override;
 };

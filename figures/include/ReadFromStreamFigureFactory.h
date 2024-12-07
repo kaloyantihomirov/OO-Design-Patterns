@@ -11,5 +11,5 @@ public:
 	ReadFromStreamFigureFactory(const ReadFromStreamFigureFactory&) = delete;
 	ReadFromStreamFigureFactory& operator=(const ReadFromStreamFigureFactory&) = delete;
 
-	Figure* createFigure() override;
+	std::unique_ptr<Figure> createFigure() override;
 };

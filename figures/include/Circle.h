@@ -4,14 +4,12 @@
 
 class Circle : public Figure
 {
-private:
 	double radius;
-	std::string strRepresentation;
 
 	void setStrRepresentation();
 public:
 	explicit Circle(double radius);
 	double getPerimeter() const override;
 	std::string toString() const override;
-	Circle* clone() const override;
+	std::unique_ptr<Figure> clone() const override;
 };

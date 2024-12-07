@@ -1,31 +1,54 @@
 #include <random>
 
 #include "RandomFigureFactory.h"
+#include "RandomCircleCreator.h"
+#include "RandomTriangleCreator.h"
 
-Triangle* RandomFigureFactory::createTriangle(std::istream& in) const
+std::unique_ptr<Figure> RandomFigureFactory::createFigure()
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> d(1, 1000);
+	if (creators.empty())
+	{
+		throw std::runtime_error("No figures registered");
+	}
 
-	double a = d(gen);
-	double b = d(gen);
+	const size_t from = 0;
+	const size_t to = creators.size() - 1;
+	std::random_device rand_dev;
+	std::mt19937 generator(rand_dev());
+	std::uniform_int_distribution<int> distr(from, to);
 
-	double c_min = abs(a - b) + 1;
-	double c_max = a + b - 1;
+	const auto& random_it = std::next(std::begin(creators),
+		distr(generator));
 
-	d = std::uniform_int_distribution<>(c_min, c_max);
-	double c = d(gen);
-
-	return new Triangle(a, b, c);
+	return random_it->second->createRandomFigure();
 }
 
-Circle* RandomFigureFactory::createCircle(std::istream& in) const
+RandomFigureFactory::RandomFigureFactory()
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> d(1, 1000);
+	creators["circle"] = std::make_unique<RandomCircleCreator>();
+	creators["triangle"] = std::make_unique<RandomTriangleCreator>();
+}
 
-	return new Circle(d(gen));
+void RandomFigureFactory::registerFigure(const std::string& figureName, std::unique_ptr<RandomFigureCreator> fp)
+{
+	if (creators.find(figureName) != creators.end())
+	{
+		throw std::invalid_argument("Figure already registered: " + figureName);
+	}
+
+	creators[figureName] = std::move(fp);
+}
+
+
+void RandomFigureFactory::removeFigure(const std::string& figureName)
+{
+	const auto& it = creators.find(figureName);
+
+	if (it == creators.end())
+	{
+		throw std::invalid_argument("Figure not registered: " + figureName);
+	}
+
+	creators.erase(it);
 }
 

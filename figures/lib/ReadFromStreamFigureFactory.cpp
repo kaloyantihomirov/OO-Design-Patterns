@@ -7,13 +7,20 @@ ReadFromStreamFigureFactory::ReadFromStreamFigureFactory(std::istream& in) : in_
 {
 }
 
-Figure* ReadFromStreamFigureFactory::createFigure()
+std::unique_ptr<Figure> ReadFromStreamFigureFactory::createFigure()
 {
 	std::string line;
+
 	if (!std::getline(in_, line))
 	{
-		throw std::runtime_error("Could not read from stream.");
+		return nullptr;
+		//throw std::runtime_error("Sorry, we could not read a line from the stream.");
+		//and then the input becomes a hell to manage
+	}
+	if (line.empty())
+	{
+		return nullptr;
 	}
 
-	return StringToFigure::createFrom(line);
+	return StringToFigure::getInstance().createFrom(line);
 }

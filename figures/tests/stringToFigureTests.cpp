@@ -6,7 +6,7 @@
 TEST_CASE("Creating a circle from string representation works correctly")
 {
 	std::string circleStr = "circle 5";
-	Figure* circle = StringToFigure::createFrom(circleStr);
+	Figure* circle = StringToFigure::getInstance().createFrom(circleStr);
 	REQUIRE(circle->toString() == "circle 5");
 	REQUIRE(abs(circle->getPerimeter() - 5 * std::numbers::pi * 2) <= std::numeric_limits<double>::epsilon());
 	delete circle;
