@@ -5,10 +5,11 @@
 
 #include "Figure.h"
 
-class FigureParser
+class FigureCreator
 {
 public:
 	virtual std::unique_ptr<Figure> createFigureFromString(const std::string& representation) const = 0;
-	virtual ~FigureParser() = default;
+	virtual std::unique_ptr<Figure> createRandomFigure() const = 0;
+	virtual ~FigureCreator() = default;
 };
 	

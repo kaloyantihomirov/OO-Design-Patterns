@@ -2,7 +2,6 @@
 
 #include "RandomFigureFactory.h"
 #include "RandomCircleCreator.h"
-#include "RandomTriangleCreator.h"
 
 std::unique_ptr<Figure> RandomFigureFactory::createFigure()
 {
@@ -17,38 +16,10 @@ std::unique_ptr<Figure> RandomFigureFactory::createFigure()
 	std::mt19937 generator(rand_dev());
 	std::uniform_int_distribution<int> distr(from, to);
 
-	const auto& random_it = std::next(std::begin(creators),
+	const auto& randomIt = std::next(std::begin(creators),
 		distr(generator));
 
-	return random_it->second->createRandomFigure();
+	return randomIt->second->createRandomFigure();
 }
 
-RandomFigureFactory::RandomFigureFactory()
-{
-	creators["circle"] = std::make_unique<RandomCircleCreator>();
-	creators["triangle"] = std::make_unique<RandomTriangleCreator>();
-}
-
-void RandomFigureFactory::registerFigure(const std::string& figureName, std::unique_ptr<RandomFigureCreator> fp)
-{
-	if (creators.find(figureName) != creators.end())
-	{
-		throw std::invalid_argument("Figure already registered: " + figureName);
-	}
-
-	creators[figureName] = std::move(fp);
-}
-
-
-void RandomFigureFactory::removeFigure(const std::string& figureName)
-{
-	const auto& it = creators.find(figureName);
-
-	if (it == creators.end())
-	{
-		throw std::invalid_argument("Figure not registered: " + figureName);
-	}
-
-	creators.erase(it);
-}
 

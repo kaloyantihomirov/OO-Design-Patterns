@@ -1,21 +1,41 @@
-#include <iostream>
+#include <stdexcept>
 
 #include "FigureFactory.h"
+#include "CircleCreator.h"
+#include "TriangleCreator.h"
 
-Figure* FigureFactory::createFigure(std::istream& in) const
+FigureFactory::FigureFactory()
 {
-	std::string figureType;
-	in >> figureType;
-
-	Figure* figure = nullptr;
-	if (figureType == "circle")
-	{
-		figure = createCircle(in);
-	}
-	else if (figureType == "triangle")
-	{
-		figure = createTriangle(in);
-	}
-
-	return figure;
+	creators["triangle"] = std::make_unique<TriangleCreator>();
+	creators["circle"] = std::make_unique<CircleCreator>();
 }
+
+void FigureFactory::registerFigure(const std::string& figureName,	
+	                               std::unique_ptr<FigureCreator> fp)
+{
+	if (creators.find(figureName) != creators.end())
+	{
+		throw std::invalid_argument("Figure already registered: " + figureName);
+	}
+
+	creators[figureName] = std::move(fp);
+}
+
+void FigureFactory::deleteFigure(const std::string& figureName)
+{
+	const auto& it = creators.find(figureName);
+
+	if (it == creators.end())
+	{
+		throw std::invalid_argument(
+			"Figure not registered: " + figureName);
+	}
+
+	creators.erase(it);
+}
+
+void FigureFactory::clearCreators()
+{
+	creators.clear();
+}
+

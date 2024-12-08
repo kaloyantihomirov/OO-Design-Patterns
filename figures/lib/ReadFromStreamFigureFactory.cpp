@@ -1,7 +1,8 @@
 #include <iostream>
+#include <sstream>
 
 #include "ReadFromStreamFigureFactory.h"
-#include "StringToFigure.h"
+
 
 ReadFromStreamFigureFactory::ReadFromStreamFigureFactory(std::istream& in) : in_(in)
 {
@@ -22,5 +23,22 @@ std::unique_ptr<Figure> ReadFromStreamFigureFactory::createFigure()
 		return nullptr;
 	}
 
-	return StringToFigure::getInstance().createFrom(line);
+	std::istringstream iss(line);
+	std::string figureType;
+	iss >> figureType;
+
+	const auto& it = creators.find(figureType);
+
+	if (it == creators.end())
+	{
+		throw std::invalid_argument("Invalid figure type: " + figureType);
+	}
+
+	std::string remaining;
+	if (!std::getline(iss >> std::ws, remaining))
+	{
+		throw std::invalid_argument("Invalid figure representation: " + line);
+	}
+
+	return it->second->createFigureFromString(remaining);
 }
