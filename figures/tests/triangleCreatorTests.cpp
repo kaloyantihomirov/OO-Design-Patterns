@@ -1,4 +1,5 @@
 #include "catch_amalgamated.hpp"
+#include "TriangleConfig.h"
 
 #include "TriangleCreator.h"
 
@@ -79,5 +80,32 @@ TEST_CASE_METHOD(TriangleCreatorTestFixture, "Creating a triangle throws for inv
 	);
 
 	REQUIRE_THROWS_AS(triangleCreator.createFigureFromString(invalidString), std::invalid_argument);
+}
+
+TEST_CASE_METHOD(TriangleCreatorTestFixture, "Creating a random triangle should work without throwing")
+{
+	std::unique_ptr<Figure> triangle;
+
+	for (size_t i = 0; i < 10000; i++)
+	{
+		REQUIRE_NOTHROW(triangle = triangleCreator.createRandomFigure());
+		REQUIRE(triangle != nullptr);
+	}
+}
+
+TEST_CASE_METHOD(TriangleCreatorTestFixture, "Creating a random triangle should return a triangle with perimeter satisfying side constraints")
+{
+	std::unique_ptr<Figure> triangle;
+
+	for (size_t i = 0; i < 10000; i++)
+	{
+		triangle = triangleCreator.createRandomFigure();
+		INFO(triangle->getPerimeter());
+		REQUIRE(((triangle->getPerimeter() >= 3 * TriangleConfig::minSideLengthRandom) 
+			&& (triangle->getPerimeter() <= 4 * TriangleConfig::maxSideLengthRandom - 1)));
+		//the second inequality comes from the fact that a + b < c for every two sides a, b of a triangle
+		//maximising two of the sides, let's say a = max and b = max, and taking into consideration
+		//the triangle inequality, we would get c <= a + b - 1 = 2max - 1.
+	}
 }
 
