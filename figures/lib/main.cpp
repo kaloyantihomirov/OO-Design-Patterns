@@ -44,7 +44,7 @@ void cloneFigure(std::vector<std::unique_ptr<Figure>>& figures, size_t indexToCl
     }
 }
 
-int main2()
+int main()
 {
     std::cout << "Please choose factory type [random, file, console]: ";
     std::string inputType;
@@ -158,34 +158,6 @@ int main2()
 
         std::cout << "Please, enter a command [delete, clone, serialise (to file), print (to console), end]: ";
         std::cin >> command;
-    }
-
-    return 0;
-}
-
-int main3()
-{
-    std::unique_ptr<FigureFactory> factory = std::make_unique<RandomFigureFactory>();
-
-    try
-    {
-        factory->deleteFigure("circle");
-    }
-    catch (std::exception& e)
-    {
-        std::cout << e.what() << "\n";
-    }
-
-    std::vector<std::unique_ptr<Figure>> v;
-
-    for (size_t i = 0; i < 10000; i++)
-    {
-        v.push_back(factory->createFigure());
-    }
-
-    for (size_t i = 0; i < 1000; i++)
-    {
-        std::cout << v[i]->toString() << "\n";
     }
 
     return 0;
