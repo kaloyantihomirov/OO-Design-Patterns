@@ -1,6 +1,7 @@
 #include <numbers>
 
 #include "catch_amalgamated.hpp"
+#include "CircleConfig.h"
 
 #include "CircleCreator.h"
 
@@ -8,6 +9,11 @@ struct CircleCreatorTestFixture
 {
 	CircleCreator circleCreator;
 };
+
+	TEST_CASE("Example test")
+	{
+		REQUIRE_NOTHROW(5 + 5);
+	}
 
 TEST_CASE_METHOD(CircleCreatorTestFixture, "Creating a circle from string representation works correctly")
 {
@@ -65,3 +71,27 @@ TEST_CASE_METHOD(CircleCreatorTestFixture, "Creating a circle throws when given 
 	REQUIRE_THROWS_AS(circleCreator.createFigureFromString(circleStr), std::invalid_argument);
 }
 
+TEST_CASE_METHOD(CircleCreatorTestFixture, "Creating a random circle should work without throwing")
+{
+	std::unique_ptr<Figure> circle;
+
+	for (size_t i = 0; i < 10000; i++)
+	{
+		REQUIRE_NOTHROW(circle = circleCreator.createRandomFigure());
+		REQUIRE(circle != nullptr);
+	}
+}
+
+TEST_CASE_METHOD(CircleCreatorTestFixture, "Creating a random circle should return a circle with valid perimeter")
+{
+	std::unique_ptr<Figure> circle;
+
+	for (size_t i = 0; i < 10000; i++)
+	{
+		circle = circleCreator.createRandomFigure();
+		double radius = circle->getPerimeter() / (2 * std::numbers::pi);
+		INFO(circle->getPerimeter());
+		REQUIRE(radius >= CircleConfig::minRadiusRandom);
+		REQUIRE(radius <= CircleConfig::maxRadiusRandom);
+	}
+}
