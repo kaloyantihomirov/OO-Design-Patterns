@@ -1,7 +1,6 @@
 #include <random>
 
 #include "RandomFigureFactory.h"
-#include "RandomCircleCreator.h"
 
 std::unique_ptr<Figure> RandomFigureFactory::createFigure()
 {

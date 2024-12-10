@@ -1,101 +1,53 @@
 ﻿#include <iostream>
 #include <fstream>
 
+#include "AbstractFigureFactory.h"
+#include "CommandHandler.h"
+#include "FigureCollector.h"
 #include "FigureFactory.h"
-#include "RandomFigureFactory.h"
-#include "ReadFromStreamFigureFactory.h"
-
-void writeFiguresToStream(const std::vector<std::unique_ptr<Figure>>& figures, std::ostream& os)
-{
-    for (const auto& figure : figures)
-    {
-        os << figure->toString() << "\n";
-    }
-}
-
-void deleteFigure(std::vector<std::unique_ptr<Figure>>& figures, size_t indexToDelete)
-{
-    if (indexToDelete >= figures.size())
-    {
-        std::cout << "Invalid index.\n";
-    }
-    else
-    {
-        figures.erase(figures.begin() + indexToDelete);
-    }
-}
-
-void cloneFigure(std::vector<std::unique_ptr<Figure>>& figures, size_t indexToClone)
-{
-    if (indexToClone >= figures.size())
-    {
-        std::cout << "Invalid index.\n";
-    }
-    else
-    {
-        if (!figures[indexToClone])
-        {
-            std::cout << "Invalid figure.\n";
-        }
-        else
-        {
-            figures.push_back(figures[indexToClone]->clone());
-        }
-    }
-}
 
 int main()
 {
     std::cout << "Please choose factory type [random, file, console]: ";
-    std::string inputType;
-    std::cin >> inputType;
+    std::string factoryType;
+    std::cin >> factoryType;
 
     std::unique_ptr<FigureFactory> factory;
 
-    if (inputType == "random") 
+    try
     {
-        factory = std::make_unique<RandomFigureFactory>();
+		factory = AbstractFigureFactory::createFigureFactory(factoryType);
     }
-    else if (inputType == "file") 
+    catch (const std::invalid_argument& e)
     {
-        std::string fileName;
-        std::cout << "Please enter the file name: ";
-        std::cin >> fileName;
-
-        std::ifstream is(fileName);
-        if (!is.is_open()) 
-        {
-            std::cerr << "Could not open file.\n";
-            return 1;
-        }
-
-        factory = std::make_unique<ReadFromStreamFigureFactory>(is);
-    }
-    else if (inputType == "console") 
-    {
-        factory = std::make_unique<ReadFromStreamFigureFactory>(std::cin);
-        std::cout << "Please, press enter two times to stop reading figures from the console!\n";
-        std::cin.ignore();
-    }
-    else 
-    {
-        std::cerr << "Invalid factory type.\n";
+		std::cout << e.what() << "\n";
         return 1;
     }
-
-    std::vector<std::unique_ptr<Figure>> figures;
-    if (inputType == "random") 
+    catch (const std::exception& e)
     {
-        size_t figuresCount;
-        std::cout << "Please enter the number of random figures to generate: ";
-        std::cin >> figuresCount;
-
-        for (size_t i = 0; i < figuresCount; i++) 
-        {
-            figures.push_back(factory->createFigure());
-        }
+		std::cout << "Something went wrong, we're sorry!" << "\n";
+		std::cout << e.what() << "\n";
+		return 1;
     }
-    else 
+    catch (...)
+    {
+        std::cout << "Something went wrong!\n";
+    }
+
+    //factory holds a valid factory object
+
+    FigureCollector figureCollector;
+    if (factoryType == "random") 
+    {
+		size_t figuresCount;
+		std::cout << "Please enter the number of random figures to generate: ";
+		std::cin >> figuresCount;
+        for (size_t i = 0; i < figuresCount; i++)
+        {
+            figureCollector.addFigure(factory->createFigure());
+        }
+	}
+    else
     {
         while (true) 
         {
@@ -106,7 +58,7 @@ int main()
                 {
                     break;
                 }
-                figures.push_back(std::move(figure));
+                figureCollector.addFigure(std::move(figure));
             }
             catch (const std::exception& e) 
             {
@@ -124,32 +76,21 @@ int main()
         {
             size_t indexToDelete;
             std::cin >> indexToDelete;
-            deleteFigure(figures, indexToDelete);
+            CommandHandler::handleDeleteCommand(figureCollector, indexToDelete);
         }
         else if (command == "clone") 
         {
             size_t indexToClone;
             std::cin >> indexToClone;
-            cloneFigure(figures, indexToClone);
+			CommandHandler::handleCloneCommand(figureCollector, indexToClone);
         }
         else if (command == "serialise") 
         {
-            std::string fileName;
-            std::cout << "Please, enter a name for the file with the serialised figures: ";
-            std::cin >> fileName;
-            std::ofstream os(fileName);
-            if (!os.is_open()) 
-            {
-                std::cout << "Could not open file.\n";
-            }
-            else 
-            {
-                writeFiguresToStream(figures, os);
-            }
+			CommandHandler::handleSerialiseCommand(figureCollector);
         }
         else if (command == "print") 
         {
-            writeFiguresToStream(figures, std::cout);
+			CommandHandler::handlePrintCommand(figureCollector);
         }
         else 
         {

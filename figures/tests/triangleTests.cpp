@@ -1,4 +1,5 @@
 #include "catch_amalgamated.hpp"
+
 #include "Triangle.h"
 
 class CongruentTrianglesFixture

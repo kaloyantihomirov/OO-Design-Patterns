@@ -12,7 +12,7 @@ void Triangle::setStrRepresentation()
 	strRepresentation = oss.str();
 }
 
-Triangle::Triangle(int a, int b, int c) 
+Triangle::Triangle(double a, double b, double c) 
 {
 	if (a <= 0 || b <= 0 || c <= 0)
 	{

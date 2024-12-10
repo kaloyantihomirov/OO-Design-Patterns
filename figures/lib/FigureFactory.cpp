@@ -2,12 +2,14 @@
 
 #include "FigureFactory.h"
 #include "CircleCreator.h"
+#include "RectangleCreator.h"
 #include "TriangleCreator.h"
 
 FigureFactory::FigureFactory()
 {
 	creators["triangle"] = std::make_unique<TriangleCreator>();
 	creators["circle"] = std::make_unique<CircleCreator>();
+	creators["rectangle"] = std::make_unique<RectangleCreator>(); 
 }
 
 void FigureFactory::registerFigure(const std::string& figureName,	

@@ -1,5 +1,0 @@
-circle 15
-circle 20
-circle 30
-triangle 1 6 6
-triangle 2 5 4

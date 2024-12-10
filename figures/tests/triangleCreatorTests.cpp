@@ -1,6 +1,6 @@
 #include "catch_amalgamated.hpp"
-#include "TriangleConfig.h"
 
+#include "TriangleConfig.h"
 #include "TriangleCreator.h"
 
 struct TriangleCreatorTestFixture
@@ -14,6 +14,14 @@ TEST_CASE_METHOD(TriangleCreatorTestFixture, "Creating a triangle from string re
 	std::unique_ptr<Figure> triangle = triangleCreator.createFigureFromString(triangleStr);
 	REQUIRE(triangle->toString() == "triangle 3 4 5");
 	REQUIRE(abs(triangle->getPerimeter() - 12) <= std::numeric_limits<double>::epsilon());
+}
+
+TEST_CASE_METHOD(TriangleCreatorTestFixture, "Creating a triangle from string representation with decimal point sides works correctly")
+{
+	std::string triangleStr = "3.5 4.5 5.5";
+	std::unique_ptr<Figure> triangle = triangleCreator.createFigureFromString(triangleStr);
+	REQUIRE(triangle->toString() == "triangle 3.5 4.5 5.5");
+	REQUIRE(abs(triangle->getPerimeter() - 13.5) <= std::numeric_limits<double>::epsilon());
 }
 
 TEST_CASE_METHOD(TriangleCreatorTestFixture, "Creating a triangle throws when params provided in representation are less than 3")
@@ -101,8 +109,8 @@ TEST_CASE_METHOD(TriangleCreatorTestFixture, "Creating a random triangle should 
 	{
 		triangle = triangleCreator.createRandomFigure();
 		INFO(triangle->getPerimeter());
-		REQUIRE(((triangle->getPerimeter() >= 3 * TriangleConfig::minSideLengthRandom) 
-			&& (triangle->getPerimeter() <= 4 * TriangleConfig::maxSideLengthRandom - 1)));
+		REQUIRE(((triangle->getPerimeter() >= 3 * TriangleConfig::twoOfTheSidesMinLengthRandom) 
+			&& (triangle->getPerimeter() <= 4 * TriangleConfig::twoOfTheSidesMaxLengthRandom - 1)));
 		//the second inequality comes from the fact that a + b < c for every two sides a, b of a triangle
 		//maximising two of the sides, let's say a = max and b = max, and taking into consideration
 		//the triangle inequality, we would get c <= a + b - 1 = 2max - 1.

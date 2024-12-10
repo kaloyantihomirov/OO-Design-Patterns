@@ -8,9 +8,9 @@ std::unique_ptr<Figure> TriangleCreator::createFigureFromString(const std::strin
 {
 	std::istringstream iss(representation);
 
-	int a;
-	int b;
-	int c;
+	double a;
+	double b;
+	double c;
 
 	if (!(iss >> a >> b >> c) || !(iss >> std::ws).eof())
 	{
@@ -24,7 +24,7 @@ std::unique_ptr<Figure> TriangleCreator::createRandomFigure() const
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> d(TriangleConfig::minSideLengthRandom, TriangleConfig::maxSideLengthRandom);
+	std::uniform_int_distribution<> d(TriangleConfig::twoOfTheSidesMinLengthRandom, TriangleConfig::twoOfTheSidesMaxLengthRandom);
 
 	int a = d(gen);
 	int b = d(gen);

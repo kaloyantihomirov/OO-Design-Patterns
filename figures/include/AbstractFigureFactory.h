@@ -5,6 +5,6 @@
 class AbstractFigureFactory
 {
 public:
-	virtual std::unique_ptr<FigureFactory> createFigureFactory(const std::string& input) const = 0;
+	static std::unique_ptr<FigureFactory> createFigureFactory(const std::string& input);
 	virtual ~AbstractFigureFactory() = default;
-}
+};
