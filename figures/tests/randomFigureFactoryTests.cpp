@@ -5,22 +5,31 @@
 #include "RandomFigureFactory.h"
 #include "TriangleCreator.h"
 
-TEST_CASE("RandomFigureFactory throws exception when no creators are registered")
+struct RandomFigureFactoryTestFixture
 {
     RandomFigureFactory factory;
 
-    factory.clearCreators();
+    RandomFigureFactoryTestFixture()
+    {
+        factory.clearCreators();
+    }
 
+    void addDefaultCreators()
+    {
+        factory.registerFigure("triangle", std::make_unique<TriangleCreator>());
+        factory.registerFigure("circle", std::make_unique<CircleCreator>());
+    }
+};
+
+TEST_CASE_METHOD(RandomFigureFactoryTestFixture, 
+    "RandomFigureFactory throws exception when no creators are registered")
+{
     REQUIRE_THROWS(factory.createFigure());
 }
 
-TEST_CASE("RandomFigureFactory correctly creates figures without throwing exceptions when properly set up")
+TEST_CASE_METHOD(RandomFigureFactoryTestFixture, "RandomFigureFactory correctly creates figures without throwing exceptions when properly set up")
 {
-    RandomFigureFactory factory;
-    factory.clearCreators();
-
-    factory.registerFigure("triangle", std::make_unique<TriangleCreator>());
-    factory.registerFigure("circle", std::make_unique<CircleCreator>());
+    addDefaultCreators();
 
     const size_t figuresCount = 1000;
     for (size_t i = 0; i < figuresCount; i++)
@@ -31,13 +40,9 @@ TEST_CASE("RandomFigureFactory correctly creates figures without throwing except
     }
 }
 
-TEST_CASE("RandomFigureFactory creates valid figures without exceptions when allowed 2 figure types")
+TEST_CASE_METHOD(RandomFigureFactoryTestFixture, "RandomFigureFactory creates valid figures without exceptions when allowed 2 figure types")
 {
-    RandomFigureFactory factory;
-    factory.clearCreators();
-
-    factory.registerFigure("triangle", std::make_unique<TriangleCreator>());
-    factory.registerFigure("circle", std::make_unique<CircleCreator>());
+    addDefaultCreators();
 
     const size_t figuresCount = 1000;
 
@@ -45,7 +50,6 @@ TEST_CASE("RandomFigureFactory creates valid figures without exceptions when all
     {
         std::unique_ptr<Figure> figure;
         REQUIRE_NOTHROW(figure = factory.createFigure());
-
         REQUIRE(figure != nullptr);
 
         std::string type = figure->toString().substr(0, figure->toString().find(' '));
@@ -53,12 +57,8 @@ TEST_CASE("RandomFigureFactory creates valid figures without exceptions when all
     }
 }
 
-
-TEST_CASE("RandomFigureFactory creates only figures of allowed type")
+TEST_CASE_METHOD(RandomFigureFactoryTestFixture, "RandomFigureFactory creates only figures of allowed type")
 {
-    RandomFigureFactory factory;
-
-    factory.clearCreators();
     factory.registerFigure("circle", std::make_unique<CircleCreator>());
 
     const size_t figuresCount = 1000;
@@ -76,13 +76,9 @@ TEST_CASE("RandomFigureFactory creates only figures of allowed type")
 
 //I haven't studied statistics but given 100_000 figures and no generated
 //triangles e.g. (if they're registered with the factory), I would expect something is wrong
-TEST_CASE("RandomFigureFactory generates figures within expected uniform distribution")
+TEST_CASE_METHOD(RandomFigureFactoryTestFixture, "RandomFigureFactory generates figures within expected uniform distribution")
 {
-    RandomFigureFactory factory;
-    factory.clearCreators();
-
-    factory.registerFigure("triangle", std::make_unique<TriangleCreator>());
-    factory.registerFigure("circle", std::make_unique<CircleCreator>());
+    addDefaultCreators();
 
     const size_t figuresCount = 100000;
     std::map<std::string, size_t> typeCounts;

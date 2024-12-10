@@ -7,12 +7,12 @@
 
 class Rectangle : public Figure
 {
-    int width;
-    int height;
+    double width;
+    double height;
     void setStrRepresentation();
 
 public:
-    Rectangle(int width, int height);
+    Rectangle(double width, double height);
     double getPerimeter() const override;
     std::string toString() const override;
     std::unique_ptr<Figure> clone() const override;

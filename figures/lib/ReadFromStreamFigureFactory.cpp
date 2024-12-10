@@ -1,10 +1,13 @@
-#include <iostream>
 #include <sstream>
 
 #include "ReadFromStreamFigureFactory.h"
 
 
-ReadFromStreamFigureFactory::ReadFromStreamFigureFactory(std::istream& in) : in_(in)
+//ReadFromStreamFigureFactory::ReadFromStreamFigureFactory(std::istream& in) : in_(in)
+//{
+//}
+
+ReadFromStreamFigureFactory::ReadFromStreamFigureFactory(std::shared_ptr<std::istream> in) : in_(std::move(in))
 {
 }
 
@@ -12,7 +15,7 @@ std::unique_ptr<Figure> ReadFromStreamFigureFactory::createFigure()
 {
 	std::string line;
 
-	if (!std::getline(in_, line))
+	if (!std::getline(*in_, line))
 	{
 		return nullptr;
 		//throw std::runtime_error("Sorry, we could not read a line from the stream.");

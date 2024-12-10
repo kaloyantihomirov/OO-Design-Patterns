@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <memory>
 
 #include "catch_amalgamated.hpp"
 
@@ -18,13 +19,13 @@ struct FiguresCollectionFixture
 
 	void generateFigures()
 	{
-		for (size_t i = 0; i < 10; i++) 
+		for (size_t i = 0; i < 10; i++)
 		{
-			if (i % 2 == 0) 
+			if (i % 2 == 0)
 			{
 				figures.push_back(std::make_unique<Circle>(10 + i));
-			}	
-			else 
+			}
+			else
 			{
 				figures.push_back(std::make_unique<Triangle>(3 + i, 4 + i, 5 + i));
 			}
@@ -35,7 +36,7 @@ struct FiguresCollectionFixture
 	{
 		std::string figuresToStr;
 
-		for (const auto& figure : figures) 
+		for (const auto& figure : figures)
 		{
 			figuresToStr += figure->toString() + "\n";
 		}
@@ -53,18 +54,15 @@ void setupFactory(ReadFromStreamFigureFactory& factory)
 
 TEST_CASE("ReadFromStreamFigureFactory throws when no figures registered")
 {
-	std::string line("triangle 10 20 20");
-	std::istringstream iss(line);
-	ReadFromStreamFigureFactory f(iss);
-	f.clearCreators();
-	REQUIRE_THROWS_AS(f.createFigure(), std::invalid_argument);
+	auto iss = std::make_shared<std::istringstream>("triangle 10 20 20");
+	ReadFromStreamFigureFactory factory(iss);
+	factory.clearCreators();
+	REQUIRE_THROWS_AS(factory.createFigure(), std::invalid_argument);
 }
 
-//check if the factory correctly dispatches the line to the correct figure's creator
 TEST_CASE("ReadFromStreamFigureFactory correctly creates a triangle for a valid triangle representation")
 {
-	std::string line("triangle 10 20 20");
-	std::istringstream iss(line);
+	auto iss = std::make_shared<std::istringstream>("triangle 10 20 20");
 	ReadFromStreamFigureFactory factory(iss);
 	setupFactory(factory);
 	std::unique_ptr<Figure> figure = factory.createFigure();
@@ -73,8 +71,7 @@ TEST_CASE("ReadFromStreamFigureFactory correctly creates a triangle for a valid 
 
 TEST_CASE("ReadFromStreamFigureFactory throws when trying to create a figure from unregistered type")
 {
-	std::string line("triangle 10 20 20");
-	std::istringstream iss(line);
+	auto iss = std::make_shared<std::istringstream>("triangle 10 20 20");
 	ReadFromStreamFigureFactory factory(iss);
 	factory.clearCreators();
 	factory.registerFigure("circle", std::make_unique<CircleCreator>());
@@ -83,13 +80,12 @@ TEST_CASE("ReadFromStreamFigureFactory throws when trying to create a figure fro
 
 TEST_CASE_METHOD(FiguresCollectionFixture, "ReadFromStreamFigureFactory correctly creates figures from different registered types")
 {
-	const auto& figuresAsStr = getFiguresAsString();
-	std::istringstream iss(figuresAsStr);
+	auto iss = std::make_shared<std::istringstream>(getFiguresAsString());
 	ReadFromStreamFigureFactory factory(iss);
 	setupFactory(factory);
 
 	std::vector<std::unique_ptr<Figure>> result;
-	while (iss)
+	while (*iss)
 	{
 		std::unique_ptr<Figure> f = factory.createFigure();
 		if (!f)
@@ -109,31 +105,28 @@ TEST_CASE_METHOD(FiguresCollectionFixture, "ReadFromStreamFigureFactory correctl
 
 TEST_CASE("ReadFromStreamFigureFactory handles empty input stream")
 {
-	std::istringstream iss("");
-
+	auto iss = std::make_shared<std::istringstream>("");
 	ReadFromStreamFigureFactory factory(iss);
-
 	setupFactory(factory);
-
 	REQUIRE(factory.createFigure() == nullptr);
 }
 
 TEST_CASE("ReadFromStreamFigureFactory handles broken input stream")
 {
-	std::istringstream iss("design-Patterns");
+	auto iss = std::make_shared<std::istringstream>("design-Patterns");
 	int num;
-	iss >> num;
+	*iss >> num; 
 	ReadFromStreamFigureFactory factory(iss);
 	REQUIRE(factory.createFigure() == nullptr);
 }
 
 TEST_CASE("ReadFromStreamFigureFactory throws when input format is invalid")
 {
-	std::string line("invalid_format");
-	std::istringstream iss(line);
+	auto iss = std::make_shared<std::istringstream>("invalid_format");
 	ReadFromStreamFigureFactory factory(iss);
-
 	setupFactory(factory);
-
 	REQUIRE_THROWS_AS(factory.createFigure(), std::invalid_argument);
 }
+
+
+

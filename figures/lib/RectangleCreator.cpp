@@ -10,8 +10,8 @@ std::unique_ptr<Figure> RectangleCreator::createFigureFromString(const std::stri
 {
 	std::istringstream iss(representation);
 
-	int width;
-	int height;
+	double width;
+	double height;
 
 	if (!(iss >> width >> height) || !(iss >> std::ws).eof())
 	{

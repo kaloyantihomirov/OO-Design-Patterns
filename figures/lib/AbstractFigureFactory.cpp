@@ -18,8 +18,8 @@ std::unique_ptr<FigureFactory> AbstractFigureFactory::createFigureFactory(const 
 		std::cout << "Please enter the file name: ";
 		std::cin >> fileName;
 
-		std::ifstream is(fileName);
-		if (!is.is_open())
+		std::shared_ptr<std::ifstream> is = std::make_shared<std::ifstream>(fileName);
+		if (!is->is_open())
 		{
 			throw std::invalid_argument("Could not open file.");
 		}
@@ -30,7 +30,9 @@ std::unique_ptr<FigureFactory> AbstractFigureFactory::createFigureFactory(const 
 	{
 		std::cout << "Please, press enter two times to stop reading figures from the console!\n";
 		std::cin.ignore();
-		return std::make_unique<ReadFromStreamFigureFactory>(std::cin);
+		std::shared_ptr<std::istream> consoleStream = std::make_shared<std::istream>(std::cin.rdbuf());
+		return std::make_unique<ReadFromStreamFigureFactory>(consoleStream);
+			
 	}
 	else
 	{

@@ -60,9 +60,13 @@ int main()
                 }
                 figureCollector.addFigure(std::move(figure));
             }
-            catch (const std::exception& e) 
+            catch (const std::exception& e) //could be overflow as well!
             {
                 std::cout << e.what() << "\n";
+            }
+            catch (...)
+            {
+                std::cout << "Something went wrong!\n";
             }
         }
     }

@@ -10,19 +10,19 @@ void Rectangle::setStrRepresentation()
     strRepresentation = oss.str();
 }
 
-Rectangle::Rectangle(int width, int height)
+Rectangle::Rectangle(double width, double height)
 {
-    if (width <= 0 || height <= 0)
+    if (width <= 0 || height <= 0) 
     {
         throw std::invalid_argument("Width and height of the rectangle must be positive.");
     }
 
-    if (width > std::numeric_limits<int>::max() - height)
+    if (width >= std::numeric_limits<double>::max() / 2 || height >= std::numeric_limits<double>::max() / 2) 
     {
-        throw std::overflow_error("The sum of width and height causes overflow.");
+        throw std::overflow_error("The perimeter of the rectangle causes overflow.");
     }
 
-    if (width > (std::numeric_limits<int>::max() / 2 - height))
+    if (width + height > std::numeric_limits<double>::max() / 2) 
     {
         throw std::overflow_error("The perimeter of the rectangle causes overflow.");
     }

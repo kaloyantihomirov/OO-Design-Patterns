@@ -1,19 +1,14 @@
 #include <numbers>
 
 #include "catch_amalgamated.hpp"
-#include "CircleConfig.h"
 
+#include "CircleConfig.h"
 #include "CircleCreator.h"
 
 struct CircleCreatorTestFixture
 {
 	CircleCreator circleCreator;
 };
-
-	TEST_CASE("Example test")
-	{
-		REQUIRE_NOTHROW(5 + 5);
-	}
 
 TEST_CASE_METHOD(CircleCreatorTestFixture, "Creating a circle from string representation works correctly")
 {
