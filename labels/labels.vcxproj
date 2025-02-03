@@ -131,6 +131,7 @@
     <ClCompile Include="CapitaliseTransformation.cpp" />
     <ClCompile Include="Censor.cpp" />
     <ClCompile Include="ColourRGB.cpp" />
+    <ClCompile Include="CyclicTransformationDecorator.cpp" />
     <ClCompile Include="Decorate.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LabelDecoratorBase.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="labels.cpp" />
     <ClCompile Include="LeftTrim.cpp" />
     <ClCompile Include="NormaliseSpace.cpp" />
+    <ClCompile Include="RandomTransformationDecorator.cpp" />
     <ClCompile Include="Replace.cpp" />
     <ClCompile Include="RichLabel.cpp" />
     <ClCompile Include="RightTrim.cpp" />
@@ -147,6 +149,8 @@
     <ClCompile Include="TextUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CyclicTransformationDecorator.h" />
+    <ClInclude Include="RandomTransformationDecorator.h" />
     <ClInclude Include="TextTransformationDecorator.h" />
     <ClInclude Include="CapitaliseTransformation.h" />
     <ClInclude Include="Censor.h" />
