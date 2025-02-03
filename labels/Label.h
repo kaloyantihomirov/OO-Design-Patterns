@@ -4,9 +4,9 @@
 
 class Label
 {
-public:
+protected:
 	std::string value;
-
+public:
 	Label(const std::string&);
 	virtual std::string getText() const = 0;
 	~Label() = default;

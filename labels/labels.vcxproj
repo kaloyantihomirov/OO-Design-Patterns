@@ -133,6 +133,7 @@
     <ClCompile Include="ColourRGB.cpp" />
     <ClCompile Include="Decorate.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LabelDecoratorBase.cpp" />
     <ClCompile Include="LabelPrinter.cpp" />
     <ClCompile Include="labels.cpp" />
     <ClCompile Include="LeftTrim.cpp" />
@@ -142,14 +143,17 @@
     <ClCompile Include="RightTrim.cpp" />
     <ClCompile Include="SimpleLabel.cpp" />
     <ClCompile Include="TextStyle.cpp" />
+    <ClCompile Include="TextTransformationDecorator.cpp" />
     <ClCompile Include="TextUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TextTransformationDecorator.h" />
     <ClInclude Include="CapitaliseTransformation.h" />
     <ClInclude Include="Censor.h" />
     <ClInclude Include="ColourRGB.h" />
     <ClInclude Include="Decorate.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LabelDecoratorBase.h" />
     <ClInclude Include="LabelPrinter.h" />
     <ClInclude Include="LeftTrim.h" />
     <ClInclude Include="NormaliseSpace.h" />

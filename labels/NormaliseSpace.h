@@ -2,8 +2,8 @@
 
 #include "TextTransformation.h"
 
-class NormaliseSpace
+class NormaliseSpace : public TextTransformation
 {
 public:
-	std::string transform(const std::string& text) const;
+	std::string transform(const std::string& text) const override;
 };
