@@ -21,29 +21,46 @@ void testCensor()
     std::cout << ttd->getText() << "|||||\n";
 }
 
-int main()
+void testDecorators()
 {
     LabelPrinter lp;
     std::shared_ptr<Label> sp = std::make_shared<SimpleLabel>("i   iaM a very simple label@      ");
     std::shared_ptr<Label> rl = std::make_shared<RichLabel>("RICHNESA@14");
 
-	std::cout << sp->getText() << "|||||||\n";
-    lp.print(*sp); 
+    std::cout << sp->getText() << "|||||||\n";
+    lp.print(*sp);
     lp.print(*rl);
 
     std::shared_ptr<TextTransformation> ct = std::make_shared<CapitaliseTransformation>();
     std::shared_ptr<TextTransformation> nrm = std::make_shared<NormaliseSpace>();
 
     std::shared_ptr<Label> ttd = std::make_shared<TextTransformationDecorator>(sp, ct);
-	//ttd = std::make_shared<TextTransformationDecorator>(ttd, nrm);
+    //ttd = std::make_shared<TextTransformationDecorator>(ttd, nrm);
     auto c = std::make_shared<Censor>("aM");
 
     std::cout << "Transformed: " << ttd->getText() << "||||\n";
 
-	ttd = std::make_shared<TextTransformationDecorator>(ttd, std::make_shared<RightTrim>());
+    ttd = std::make_shared<TextTransformationDecorator>(ttd, std::make_shared<RightTrim>());
     ttd = std::make_shared<TextTransformationDecorator>(ttd, c);
     std::cout << "Transformed: " << ttd->getText() << "||||\n";
     std::cout << "\n\n";
-	testCensor();
+}
+
+int main()
+{
+    //i want to see if it's possible to pass a nullptr when in the code
+    //we expect a shared_ptr to be passed (in order to throw an exception)
+
+	//what we want to achieve
+
+	std::shared_ptr<Label> sl = std::make_shared<SimpleLabel>("a sample  label     ");
+	std::shared_ptr<TextTransformation> rplc = std::make_shared<Replace>("label", "description");
+	std::shared_ptr<TextTransformation> rplc2 = std::make_shared<Replace>("SAP", "Astea");
+
+	sl = std::make_shared<TextTransformationDecorator>(sl, rplc);
+	sl = std::make_shared<TextTransformationDecorator>(sl, rplc2);
+
+
+	
     return 0;
 }

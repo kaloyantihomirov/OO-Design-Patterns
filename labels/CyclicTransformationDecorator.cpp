@@ -14,6 +14,11 @@ CyclicTransformationDecorator::CyclicTransformationDecorator(
 
 	for (const auto& t : transformations)
 	{
+		if (!t)
+		{
+			throw std::invalid_argument("Invalid transformation");
+		}
+
 		this->transformations.push(t);
 	}
 }

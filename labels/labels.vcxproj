@@ -145,6 +145,7 @@
     <ClCompile Include="RightTrim.cpp" />
     <ClCompile Include="SimpleLabel.cpp" />
     <ClCompile Include="TextStyle.cpp" />
+    <ClCompile Include="TextTransformation.cpp" />
     <ClCompile Include="TextTransformationDecorator.cpp" />
     <ClCompile Include="TextUtil.cpp" />
   </ItemGroup>

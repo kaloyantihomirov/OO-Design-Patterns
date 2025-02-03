@@ -11,4 +11,5 @@ class Replace : public TextTransformation
 public:
 	Replace(const std::string& replaceWhat, const std::string& replaceWithWhat);
 	std::string transform(const std::string& text) const override;
+	bool operator==(const TextTransformation& other) const override;
 };

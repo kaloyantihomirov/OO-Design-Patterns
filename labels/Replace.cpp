@@ -28,3 +28,16 @@ std::string Replace::transform(const std::string& text) const
 
     return result;
 }
+
+bool Replace::operator==(const TextTransformation& other) const
+{
+	const Replace* otherReplace = dynamic_cast<const Replace*>(&other);
+
+	if (!otherReplace)
+	{
+		return false;
+	}
+
+	return replaceWhat == otherReplace->replaceWhat &&
+		replaceWithWhat == otherReplace->replaceWithWhat;
+}

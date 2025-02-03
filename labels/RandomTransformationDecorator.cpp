@@ -13,6 +13,14 @@ RandomTransformationDecorator::RandomTransformationDecorator(
 		throw std::invalid_argument("No transformations provided");
 	}
 
+	for (const auto& t : transformations)
+	{
+		if (!t)
+		{
+			throw std::invalid_argument("Invalid transformation");
+		}
+	}
+
 	this->transformations = transformations;
 }
 

@@ -20,3 +20,16 @@ std::string Censor::transform(const std::string& text) const
 
 	return result;
 }
+
+bool Censor::operator==(const TextTransformation& other) const
+{
+	const Censor* otherCensor = dynamic_cast<const Censor*>(&other);
+
+	if (!otherCensor)
+	{
+		return false;
+	}
+
+	return wordToCensor == otherCensor->wordToCensor &&
+		replaceWith == otherCensor->replaceWith;
+}
