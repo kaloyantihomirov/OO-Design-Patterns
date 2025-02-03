@@ -33,3 +33,8 @@ std::string CyclicTransformationDecorator::getText() const
 
 	return t->transform(text);
 }
+
+bool CyclicTransformationDecorator::operator==(const LabelDecoratorBase& other) const
+{
+	throw std::logic_error("The method or operation is not implemented.");
+}

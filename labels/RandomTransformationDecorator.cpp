@@ -35,3 +35,8 @@ std::string RandomTransformationDecorator::getText() const
 
 	return transformations[index]->transform(text);
 }
+
+bool RandomTransformationDecorator::operator==(const LabelDecoratorBase& other) const
+{
+	throw std::logic_error("The method or operation is not implemented.");
+}

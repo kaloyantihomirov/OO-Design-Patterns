@@ -14,4 +14,6 @@ public:
 		const std::vector<std::shared_ptr<TextTransformation>>& transformations);
 
 	std::string getText() const override;
+
+	bool operator==(const LabelDecoratorBase& other) const override;
 };
