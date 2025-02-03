@@ -7,10 +7,10 @@
 class RichLabel : public Label
 {
 public:
-	TextStyle ts;
+	TextStyle textStyle;
 
 	RichLabel(const std::string& value);
-	RichLabel(const std::string& value, const TextStyle& ts);
+	RichLabel(const std::string& value, const TextStyle& textStyle);
 	RichLabel(const std::string& value,
 		      const std::string& fontName,
 		      int fontSize,

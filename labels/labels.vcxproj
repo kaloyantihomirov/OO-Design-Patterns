@@ -128,21 +128,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CapitaliseTransformation.cpp" />
+    <ClCompile Include="Censor.cpp" />
     <ClCompile Include="ColourRGB.cpp" />
+    <ClCompile Include="Decorate.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LabelPrinter.cpp" />
     <ClCompile Include="labels.cpp" />
+    <ClCompile Include="LeftTrim.cpp" />
+    <ClCompile Include="NormaliseSpace.cpp" />
+    <ClCompile Include="Replace.cpp" />
     <ClCompile Include="RichLabel.cpp" />
+    <ClCompile Include="RightTrim.cpp" />
     <ClCompile Include="SimpleLabel.cpp" />
     <ClCompile Include="TextStyle.cpp" />
+    <ClCompile Include="TextUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CapitaliseTransformation.h" />
+    <ClInclude Include="Censor.h" />
     <ClInclude Include="ColourRGB.h" />
+    <ClInclude Include="Decorate.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="LabelPrinter.h" />
+    <ClInclude Include="LeftTrim.h" />
+    <ClInclude Include="NormaliseSpace.h" />
+    <ClInclude Include="Replace.h" />
     <ClInclude Include="RichLabel.h" />
+    <ClInclude Include="RightTrim.h" />
     <ClInclude Include="SimpleLabel.h" />
     <ClInclude Include="TextStyle.h" />
+    <ClInclude Include="TextTransformation.h" />
+    <ClInclude Include="TextUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

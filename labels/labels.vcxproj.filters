@@ -36,6 +36,30 @@
     <ClCompile Include="RichLabel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CapitaliseTransformation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LeftTrim.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RightTrim.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NormaliseSpace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Decorate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Censor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Replace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Label.h">
@@ -54,6 +78,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextStyle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextTransformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CapitaliseTransformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LeftTrim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RightTrim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NormaliseSpace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Decorate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Censor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Replace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
