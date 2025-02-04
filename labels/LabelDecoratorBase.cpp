@@ -50,6 +50,8 @@ std::shared_ptr<Label> LabelDecoratorBase::removeDecorator(
             label = innerDecorator->removeDecorator(decoratorToRemove);
         }
 
+        //to ensure that the returned pointer shares the same reference count as the pointer 
+		//that originally owns the object (to avoid double deletion or premature deletion)
         return std::static_pointer_cast<Label>(shared_from_this());
     }
 }
