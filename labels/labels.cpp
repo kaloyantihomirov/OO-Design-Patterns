@@ -56,11 +56,11 @@ int main()
 	std::shared_ptr<Label> sl = std::make_shared<SimpleLabel>("a sample  label     ");
 	std::shared_ptr<TextTransformation> rplc = std::make_shared<Replace>("label", "description");
 	std::shared_ptr<TextTransformation> rplc2 = std::make_shared<Replace>("SAP", "Astea");
-	std::shared_ptr<TextTransformation> rplc3 = std::make_shared<RightTrim>();
+	std::shared_ptr<TextTransformation> rtr = std::make_shared<RightTrim>();
 
 	//sl = std::make_shared<TextTransformationDecorator>(sl, rplc);
 	sl = std::make_shared<TextTransformationDecorator>(sl, rplc2);
-	sl = std::make_shared<TextTransformationDecorator>(sl, rplc3);
+	sl = std::make_shared<TextTransformationDecorator>(sl, rtr);
 
 	std::cout << sl->getText() << "|||||\n";
 
