@@ -148,6 +148,7 @@
     <ClCompile Include="SimpleLabel.cpp" />
     <ClCompile Include="test_CapitaliseTextTransformation.cpp" />
     <ClCompile Include="test_CensorTextTransformation.cpp" />
+    <ClCompile Include="test_CompositeTextTransformation.cpp" />
     <ClCompile Include="test_DecorateTextTransformation.cpp" />
     <ClCompile Include="test_LeftTrimTextTransformation.cpp" />
     <ClCompile Include="test_NormaliseSpaceTextTransformation.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="catch_amalgamated.hpp" />
     <ClInclude Include="CompositeTransformation.h" />
     <ClInclude Include="CyclicTransformationDecorator.h" />
+    <ClInclude Include="fakeit.hpp" />
     <ClInclude Include="RandomTransformationDecorator.h" />
     <ClInclude Include="TextTransformationDecorator.h" />
     <ClInclude Include="CapitaliseTransformation.h" />

@@ -120,6 +120,9 @@
     <ClCompile Include="test_CapitaliseTextTransformation.cpp">
       <Filter>Testing\TextTransformation</Filter>
     </ClCompile>
+    <ClCompile Include="test_CompositeTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Label.h">
@@ -183,6 +186,9 @@
       <Filter>Header Files\TextTransformation</Filter>
     </ClInclude>
     <ClInclude Include="catch_amalgamated.hpp">
+      <Filter>Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="fakeit.hpp">
       <Filter>Testing</Filter>
     </ClInclude>
   </ItemGroup>
