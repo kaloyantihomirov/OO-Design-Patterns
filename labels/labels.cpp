@@ -46,7 +46,7 @@ void testDecorators()
     std::cout << "\n\n";
 }
 
-int main()
+int main2()
 {
     //i want to see if it's possible to pass a nullptr when in the code
     //we expect a shared_ptr to be passed (in order to throw an exception)

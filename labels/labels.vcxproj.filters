@@ -25,6 +25,12 @@
     <Filter Include="Header Files\TextTransformation">
       <UniqueIdentifier>{a567e7c4-d7c6-42d3-b85a-4f163d145a9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{2049b236-cf4a-4340-afab-6f5f5652050c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing\TextTransformation">
+      <UniqueIdentifier>{cb3f2137-aa74-4630-9bd7-4433925cfbaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labels.cpp">
@@ -87,6 +93,33 @@
     <ClCompile Include="TextTransformation.cpp">
       <Filter>Source Files\TextTransformation</Filter>
     </ClCompile>
+    <ClCompile Include="CompositeTransformation.cpp">
+      <Filter>Source Files\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="catch_amalgamated.cpp">
+      <Filter>Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="test_RightTrimTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="test_ReplaceTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="test_NormaliseSpaceTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="test_LeftTrimTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="test_DecorateTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="test_CensorTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="test_CapitaliseTextTransformation.cpp">
+      <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Label.h">
@@ -145,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="TextTransformation.h">
       <Filter>Header Files\TextTransformation</Filter>
+    </ClInclude>
+    <ClInclude Include="CompositeTransformation.h">
+      <Filter>Header Files\TextTransformation</Filter>
+    </ClInclude>
+    <ClInclude Include="catch_amalgamated.hpp">
+      <Filter>Testing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

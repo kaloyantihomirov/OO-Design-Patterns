@@ -8,6 +8,11 @@ Censor::Censor(const std::string& wordToCensor, char replaceWith)
 
 std::string Censor::transform(const std::string& text) const
 {
+	if (wordToCensor.empty())
+	{
+		return text;
+	}
+
 	std::string result = text;
 	size_t pos = 0;
 	const size_t wordToCensorLength = wordToCensor.length();
