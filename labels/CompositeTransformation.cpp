@@ -28,3 +28,25 @@ std::string CompositeTransformation::transform(const std::string& text) const
 	}
 	return res;
 }
+
+bool CompositeTransformation::operator==(const TextTransformation& other) const
+{
+	const CompositeTransformation* pct = dynamic_cast<const CompositeTransformation*>(&other);
+
+	if (!pct)
+	{
+		return false;
+	}
+
+	if (pct->transformations.size() != this->transformations.size()) return false;
+
+	for (size_t i = 0; i < this->transformations.size(); i++)
+	{
+		if (!(*(this->transformations[i]) == *pct->transformations[i])) 
+		{
+			return false;
+		}
+	}
+
+	return true;
+}

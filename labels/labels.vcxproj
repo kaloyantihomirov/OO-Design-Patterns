@@ -154,6 +154,7 @@
     <ClCompile Include="test_NormaliseSpaceTextTransformation.cpp" />
     <ClCompile Include="test_ReplaceTextTransformation.cpp" />
     <ClCompile Include="test_RightTrimTextTransformation.cpp" />
+    <ClCompile Include="test_TextTransformationDecorator.cpp" />
     <ClCompile Include="TextStyle.cpp" />
     <ClCompile Include="TextTransformation.cpp" />
     <ClCompile Include="TextTransformationDecorator.cpp" />

@@ -31,6 +31,9 @@
     <Filter Include="Testing\TextTransformation">
       <UniqueIdentifier>{cb3f2137-aa74-4630-9bd7-4433925cfbaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Testing\Decorator">
+      <UniqueIdentifier>{0e44a354-a783-492a-9ba6-cfcbeabbb02c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labels.cpp">
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="test_CompositeTextTransformation.cpp">
       <Filter>Testing\TextTransformation</Filter>
+    </ClCompile>
+    <ClCompile Include="test_TextTransformationDecorator.cpp">
+      <Filter>Testing\Decorator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

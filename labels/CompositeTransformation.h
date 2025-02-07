@@ -11,4 +11,5 @@ class CompositeTransformation : public TextTransformation
 public:
 	CompositeTransformation(const std::vector<std::shared_ptr<TextTransformation>>& transformations);
 	std::string transform(const std::string& text) const override;
+	bool operator==(const TextTransformation& other) const override;
 };
