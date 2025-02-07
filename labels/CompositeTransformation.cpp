@@ -29,6 +29,13 @@ std::string CompositeTransformation::transform(const std::string& text) const
 	return res;
 }
 
+/* The situation is a bit tricky. If we have a composite transformation that consists of only one
+   * "simple" transformation, should we then consider the two transformations (the composite one
+   * and the single "simple" one it consists of) equal, based solely on the fact that they yield
+   * the same result for any input? In the solution I propose, we consider two composite transformations
+   * equal if and only if both are *composite* and their constituent transformations are equal
+   * in the sense of operator==.
+   */
 bool CompositeTransformation::operator==(const TextTransformation& other) const
 {
 	const CompositeTransformation* pct = dynamic_cast<const CompositeTransformation*>(&other);

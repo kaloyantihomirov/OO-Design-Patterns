@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <vector>
 
 #include "LabelPrinter.h"
 #include "SimpleLabel.h"
@@ -9,6 +10,8 @@
 #include "NormaliseSpace.h"
 #include "RightTrim.h"
 #include "Censor.h"
+#include "CompositeTransformation.h"
+#include "Decorate.h"
 #include "Replace.h"
 
 void testCensor()
@@ -46,7 +49,33 @@ void testDecorators()
     std::cout << "\n\n";
 }
 
-int main2()
+int testCompositeTransformation()
+{
+    std::shared_ptr<TextTransformation> capitalise = std::make_shared<CapitaliseTransformation>();
+    std::shared_ptr<TextTransformation> decorate = std::make_shared<Decorate>();
+    std::shared_ptr<TextTransformation> replace = std::make_shared<Replace>("abc", "def");
+
+    std::shared_ptr<Label> sl = std::make_shared<SimpleLabel>("abc def");
+
+    std::vector<std::shared_ptr<TextTransformation>> trans1;
+    trans1.push_back(capitalise);
+    trans1.push_back(decorate);
+    trans1.push_back(replace);
+
+    std::vector<std::shared_ptr<TextTransformation>> trans2;
+    trans2.push_back(replace);
+    trans2.push_back(capitalise);
+    trans2.push_back(decorate);
+
+    std::shared_ptr<TextTransformation> comp1 = std::make_shared<CompositeTransformation>(trans1);
+    std::shared_ptr<TextTransformation> comp2 = std::make_shared<CompositeTransformation>(trans2);
+
+    sl = std::make_shared<TextTransformationDecorator>(sl, comp1);
+
+    std::cout << sl->getText() << "\n";
+}
+
+int main()
 {
     //i want to see if it's possible to pass a nullptr when in the code
     //we expect a shared_ptr to be passed (in order to throw an exception)
@@ -74,5 +103,9 @@ int main2()
 	sl = std::make_shared<TextTransformationDecorator>(sl, std::make_shared<RightTrim>());
 	
 	std::cout << sl->getText() << "|||||\n";
+
+    testCompositeTransformation();
     return 0;
 }
+
+
