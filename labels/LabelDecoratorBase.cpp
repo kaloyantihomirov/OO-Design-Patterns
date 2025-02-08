@@ -34,6 +34,8 @@ std::shared_ptr<Label> LabelDecoratorBase::removeDecoratorFrom(
     }
 }
 
+//D1->D2->SL
+
 std::shared_ptr<Label> LabelDecoratorBase::removeDecorator(
     std::shared_ptr<LabelDecoratorBase> decoratorToRemove)
 {

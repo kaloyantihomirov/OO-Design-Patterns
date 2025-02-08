@@ -9,5 +9,5 @@ protected:
 public:
 	Label(const std::string&);
 	virtual std::string getText() const = 0;
-	~Label() = default;
+	virtual ~Label() = default;
 };

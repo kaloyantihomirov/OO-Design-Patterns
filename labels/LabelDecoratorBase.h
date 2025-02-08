@@ -18,5 +18,5 @@ public:
 
 	virtual bool operator==(const LabelDecoratorBase& other) const = 0;
 
-	virtual ~LabelDecoratorBase() = default;
+	~LabelDecoratorBase() override = default;
 };

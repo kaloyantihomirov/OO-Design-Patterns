@@ -141,6 +141,7 @@
     <ClCompile Include="labels.cpp" />
     <ClCompile Include="LeftTrim.cpp" />
     <ClCompile Include="NormaliseSpace.cpp" />
+    <ClCompile Include="ProxyLabel.cpp" />
     <ClCompile Include="RandomTransformationDecorator.cpp" />
     <ClCompile Include="Replace.cpp" />
     <ClCompile Include="RichLabel.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="CompositeTransformation.h" />
     <ClInclude Include="CyclicTransformationDecorator.h" />
     <ClInclude Include="fakeit.hpp" />
+    <ClInclude Include="ProxyLabel.h" />
     <ClInclude Include="RandomTransformationDecorator.h" />
     <ClInclude Include="TextTransformationDecorator.h" />
     <ClInclude Include="CapitaliseTransformation.h" />

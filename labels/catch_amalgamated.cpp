@@ -15,6 +15,9 @@
 
 #include "catch_amalgamated.hpp"
 
+#define CATCH_AMALGAMATED_CUSTOM_MAIN
+
+
 
 #ifndef CATCH_WINDOWS_H_PROXY_HPP_INCLUDED
 #define CATCH_WINDOWS_H_PROXY_HPP_INCLUDED

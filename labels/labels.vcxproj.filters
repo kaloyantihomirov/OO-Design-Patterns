@@ -129,6 +129,9 @@
     <ClCompile Include="test_TextTransformationDecorator.cpp">
       <Filter>Testing\Decorator</Filter>
     </ClCompile>
+    <ClCompile Include="ProxyLabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Label.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="fakeit.hpp">
       <Filter>Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="ProxyLabel.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
