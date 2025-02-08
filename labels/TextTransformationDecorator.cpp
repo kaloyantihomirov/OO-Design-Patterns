@@ -15,7 +15,7 @@ TextTransformationDecorator::TextTransformationDecorator(
 	this->textTransformation = textTransformation;
 }
 
-std::string TextTransformationDecorator::getText() const
+std::string TextTransformationDecorator::getText() 
 {
 	return textTransformation->transform(label->getText());
 }

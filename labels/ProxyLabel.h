@@ -1,16 +1,18 @@
 #pragma once
 
 #include "Label.h"
+#include "SimpleLabel.h"
 
-class ProxyLabel : public Label
+class ProxyLabel : public ILabel
 {
-	mutable std::unique_ptr<Label> realLabel;
-	mutable std::string cache;
-	mutable bool initialised;
-	mutable int requestCount;
+	std::unique_ptr<Label> realLabel;
+	int requestCount;
 	int timeout;
+
+	std::istream& in;
+	std::ostream& out;
 public:
 	ProxyLabel(int timeout = 5);
 
-	std::string getText() const override;
+	std::string getText() override;
 };

@@ -147,6 +147,7 @@
     <ClCompile Include="RichLabel.cpp" />
     <ClCompile Include="RightTrim.cpp" />
     <ClCompile Include="SimpleLabel.cpp" />
+    <ClCompile Include="StringCache.cpp" />
     <ClCompile Include="test_CapitaliseTextTransformation.cpp" />
     <ClCompile Include="test_CensorTextTransformation.cpp" />
     <ClCompile Include="test_CompositeTextTransformation.cpp" />
@@ -166,6 +167,9 @@
     <ClInclude Include="CompositeTransformation.h" />
     <ClInclude Include="CyclicTransformationDecorator.h" />
     <ClInclude Include="fakeit.hpp" />
+    <ClInclude Include="ILabel.h" />
+    <ClInclude Include="LabelFactory.h" />
+    <ClInclude Include="StringCache.h" />
     <ClInclude Include="ProxyLabel.h" />
     <ClInclude Include="RandomTransformationDecorator.h" />
     <ClInclude Include="TextTransformationDecorator.h" />

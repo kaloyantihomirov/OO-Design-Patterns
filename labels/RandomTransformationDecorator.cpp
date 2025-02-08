@@ -24,7 +24,7 @@ RandomTransformationDecorator::RandomTransformationDecorator(
 	this->transformations = transformations;
 }
 
-std::string RandomTransformationDecorator::getText() const
+std::string RandomTransformationDecorator::getText()
 {
 	std::string text = label->getText();
 

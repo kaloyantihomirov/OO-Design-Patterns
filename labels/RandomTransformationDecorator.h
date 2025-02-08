@@ -13,7 +13,7 @@ public:
 		std::shared_ptr<Label> label,
 		const std::vector<std::shared_ptr<TextTransformation>>& transformations);
 
-	std::string getText() const override;
+	std::string getText() override;
 
 	bool operator==(const LabelDecoratorBase& other) const override;
 };

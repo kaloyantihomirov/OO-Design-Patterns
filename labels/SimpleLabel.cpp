@@ -4,7 +4,7 @@ SimpleLabel::SimpleLabel(const std::string& value) : Label(value)
 {
 }
 
-std::string SimpleLabel::getText() const 
+std::string SimpleLabel::getText()  
 {
 	return this->value;
 }

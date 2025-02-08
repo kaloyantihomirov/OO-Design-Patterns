@@ -132,6 +132,9 @@
     <ClCompile Include="ProxyLabel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StringCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Label.h">
@@ -201,6 +204,15 @@
       <Filter>Testing</Filter>
     </ClInclude>
     <ClInclude Include="ProxyLabel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StringCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ILabel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LabelFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

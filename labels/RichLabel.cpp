@@ -17,7 +17,7 @@ RichLabel::RichLabel(const std::string& value,
 {
 }
 
-std::string RichLabel::getText() const
+std::string RichLabel::getText()
 {
 	return std::format("$$$ {} $$$, colourRGB = ({},{},{}), font = {{ {}, {} pt }}",
 		value, 

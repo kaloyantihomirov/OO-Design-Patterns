@@ -16,5 +16,5 @@ public:
 		      int fontSize,
 		      const ColourRGB& colour);
 
-	std::string getText() const override;
+	std::string getText() override;
 };

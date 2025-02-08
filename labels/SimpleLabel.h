@@ -6,5 +6,5 @@ class SimpleLabel : public Label
 {
 public:
 	SimpleLabel(const std::string&);
-	std::string getText() const override;
+	std::string getText() override;
 };

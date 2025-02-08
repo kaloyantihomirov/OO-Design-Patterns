@@ -2,40 +2,43 @@
 
 #include "ProxyLabel.h"
 
-ProxyLabel::ProxyLabel(int timeout) : Label(""), initialised(false), requestCount(0), timeout(timeout)
+ProxyLabel::ProxyLabel(int timeout) : realLabel(nullptr), requestCount(0), timeout(timeout),
+in(std::cin), out(std::cout)
 {
 }
 
-std::string ProxyLabel::getText() const
+std::string ProxyLabel::getText()
 {
-	if (!initialised)
+	if (!realLabel)
 	{
-		std::cout << "Enter label text: ";
-		std::getline(std::cin, cache);
-
-		initialised = true;
+		std::string value;
+		out << "Please, enter label value: ";
+		std::getline(in, value);
+		realLabel = std::make_unique<SimpleLabel>(value);
 		requestCount = 1;
-		return cache;
+		return realLabel->getText();
 	}
 
 	requestCount++;
 
 	if (requestCount >= timeout)
 	{
-		std::cout << "Label text requested " << requestCount << " times. Do you want to update label text? (y/n): ";
+		out << "Label text requested " << requestCount
+			<< " times. Do you want to update label text? (y/n): ";
 		char response;
-		std::cin >> response;
-		std::cin.ignore();
-
+		in >> response;
+		in.ignore(); 
 		if (response == 'y' || response == 'Y')
 		{
-			std::cout << "Enter new label text: ";
-			std::getline(std::cin, cache);
+			out << "Enter new label value: ";
+			std::string newValue;
+			std::getline(in, newValue);
+
+			realLabel = std::make_unique<SimpleLabel>(newValue);
 		}
 
 		requestCount = 0;
 	}
 
-	return cache;
+	return realLabel->getText();
 }
-
