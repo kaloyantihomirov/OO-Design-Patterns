@@ -3,8 +3,8 @@
 #include "ProxyLabel.h"
 #include "SimpleLabel.h"
 
-ProxyLabel::ProxyLabel(int timeout) : realLabel(nullptr), requestCount(0), timeout(timeout),
-in(std::cin), out(std::cout)
+ProxyLabel::ProxyLabel(int timeout, std::istream& in, std::ostream& out) : realLabel(nullptr), requestCount(0), timeout(timeout),
+	in(in), out(out)
 {
 }
 
@@ -22,7 +22,7 @@ std::string ProxyLabel::getText()
 
 	requestCount++;
 
-	if (requestCount >= timeout)
+	if (requestCount > timeout)
 	{
 		out << "Label text requested " << requestCount
 			<< " times. Do you want to update label text? (y/n): ";
