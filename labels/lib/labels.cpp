@@ -89,19 +89,24 @@ void testCompositeTransformation()
 	std::cout << sl->getText() << "\n";
 }
 
-void removeNonexistingDecorator()
+void removeDecorator()
 {
 	std::shared_ptr<TextTransformation> rplc = std::make_shared<Censor>("abc");
 	std::shared_ptr<TextTransformation> ltr = std::make_shared<LeftTrim>();
+	std::shared_ptr<TextTransformation> nrm = std::make_shared<NormaliseSpace>();
+	std::shared_ptr<TextTransformation> notApplied = std::make_shared<RightTrim>();
 
-	std::shared_ptr<Label> lbl = std::make_shared<SimpleLabel>("  abc daf");
+	std::shared_ptr<Label> lbl = std::make_shared<SimpleLabel>(" abc  daf");
 
 	lbl = std::make_shared<TextTransformationDecorator>(lbl, rplc);
 	lbl = std::make_shared<TextTransformationDecorator>(lbl, ltr);
+	lbl = std::make_shared<TextTransformationDecorator>(lbl, nrm);
 
-	std::shared_ptr<LabelDecoratorBase> dummy = std::make_shared<TextTransformationDecorator>(lbl, rplc);
+	//std::shared_ptr<LabelDecoratorBase> dummy = std::make_shared<TextTransformationDecorator>(lbl, notApplied);
+	//std::shared_ptr<LabelDecoratorBase> dummy = std::make_shared<TextTransformationDecorator>(lbl, rplc);
+	std::shared_ptr<LabelDecoratorBase> dummy = std::make_shared<TextTransformationDecorator>(lbl, nrm);
 
-	LabelDecoratorBase::removeDecoratorFrom(lbl, dummy);
+	lbl = LabelDecoratorBase::removeDecoratorFrom(lbl, dummy);
 
 	std::cout << lbl->getText() << "\n";
 }
@@ -127,7 +132,7 @@ int main(int argc, char* argv[])
 {
 	//testCompositeTransformation();
 	//testHelpLabel();
-	removeNonexistingDecorator();
+	removeDecorator();
 
 	int result = Catch::Session().run(argc, argv);
 	return result;
