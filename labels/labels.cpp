@@ -15,6 +15,8 @@
 #include "Replace.h"
 
 #include "catch_amalgamated.hpp"
+#include "HelpLabel.h"
+#include "LeftTrim.h"
 #include "ProxyLabel.h"
 
 void testCensor()
@@ -87,43 +89,45 @@ void testCompositeTransformation()
 	std::cout << sl->getText() << "\n";
 }
 
+void removeNonexistingDecorator()
+{
+	std::shared_ptr<TextTransformation> rplc = std::make_shared<Censor>("abc");
+	std::shared_ptr<TextTransformation> ltr = std::make_shared<LeftTrim>();
+
+	std::shared_ptr<Label> lbl = std::make_shared<SimpleLabel>("  abc daf");
+
+	lbl = std::make_shared<TextTransformationDecorator>(lbl, rplc);
+	lbl = std::make_shared<TextTransformationDecorator>(lbl, ltr);
+
+	std::shared_ptr<LabelDecoratorBase> dummy = std::make_shared<TextTransformationDecorator>(lbl, rplc);
+
+	LabelDecoratorBase::removeDecoratorFrom(lbl, dummy);
+
+	std::cout << lbl->getText() << "\n";
+}
+
+void testHelpLabel()
+{
+	std::unique_ptr<ILabel> simple = std::make_unique<SimpleLabel>("Hello World");
+	std::unique_ptr<ILabel> rl = std::make_unique<RichLabel>("rich", "Ariel", 14, ColourRGB(0, 0, 0));
+	std::unique_ptr<ILabel> cl = std::make_unique<ProxyLabel>(5);
+
+	HelpLabel helpLabel(std::move(simple), "This label displays a greeting.");
+	HelpLabel helpLabel2(std::move(rl), "This is a rich label, displaying a black text.");
+	HelpLabel helpLabel3(std::move(cl), "This is a custom proxy label.");
+
+	LabelPrinter::printWithHelpText(helpLabel);
+	std::cout << "\n";
+	LabelPrinter::printWithHelpText(helpLabel2);
+	std::cout << "\n";
+	LabelPrinter::printWithHelpText(helpLabel3);
+}
+
 int main(int argc, char* argv[])
 {
-	//i want to see if it's possible to pass a nullptr when in the code
-	//we expect a shared_ptr to be passed (in order to throw an exception)
-
-	//what we want to achieve
-
-	std::shared_ptr<Label> sl = std::make_shared<SimpleLabel>("a sample  label     ");
-	std::shared_ptr<TextTransformation> rplc = std::make_shared<Replace>("label", "description");
-	std::shared_ptr<TextTransformation> rplc2 = std::make_shared<Replace>("SAP", "Astea");
-	std::shared_ptr<TextTransformation> rtr = std::make_shared<RightTrim>();
-
-	//sl = std::make_shared<TextTransformationDecorator>(sl, rplc);
-	sl = std::make_shared<TextTransformationDecorator>(sl, rplc2);
-	sl = std::make_shared<TextTransformationDecorator>(sl, rtr);
-
-	std::cout << sl->getText() << "|||||\n";
-
-	auto dummyLabel = std::make_shared<SimpleLabel>("");
-	auto dummyDecorator = std::make_shared<TextTransformationDecorator>(
-		dummyLabel, std::make_shared<RightTrim>());
-	sl = LabelDecoratorBase::removeDecoratorFrom(sl, dummyDecorator);
-
-	std::cout << sl->getText() << "|||||\n";
-
-	sl = std::make_shared<TextTransformationDecorator>(sl, std::make_shared<RightTrim>());
-
-	std::cout << sl->getText() << "|||||\n";
-
-	testCompositeTransformation();
-
-	ProxyLabel myLabel(3);
-
-	for (int i = 0; i < 10; i++) 
-	{
-		std::cout << "Label: " << myLabel.getText() << std::endl;
-	}
+	//testCompositeTransformation();
+	//testHelpLabel();
+	removeNonexistingDecorator();
 
 	int result = Catch::Session().run(argc, argv);
 	return result;

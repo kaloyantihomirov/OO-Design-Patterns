@@ -16,6 +16,8 @@ namespace
         {
             return text;
         }
+
+        bool operator==(const TextTransformation& other) const override { return true;  }
     };
 }
 

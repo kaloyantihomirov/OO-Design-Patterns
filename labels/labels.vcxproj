@@ -131,12 +131,16 @@
     <ClCompile Include="CapitaliseTransformation.cpp" />
     <ClCompile Include="catch_amalgamated.cpp" />
     <ClCompile Include="Censor.cpp" />
+    <ClCompile Include="CensorTransformationFactory.cpp" />
     <ClCompile Include="ColourRGB.cpp" />
     <ClCompile Include="CompositeTransformation.cpp" />
     <ClCompile Include="CyclicTransformationDecorator.cpp" />
     <ClCompile Include="Decorate.cpp" />
+    <ClCompile Include="HelpLabel.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LabelAbstraction.cpp" />
     <ClCompile Include="LabelDecoratorBase.cpp" />
+    <ClCompile Include="LabelFactory.cpp" />
     <ClCompile Include="LabelPrinter.cpp" />
     <ClCompile Include="labels.cpp" />
     <ClCompile Include="LeftTrim.cpp" />
@@ -147,9 +151,9 @@
     <ClCompile Include="RichLabel.cpp" />
     <ClCompile Include="RightTrim.cpp" />
     <ClCompile Include="SimpleLabel.cpp" />
-    <ClCompile Include="StringCache.cpp" />
     <ClCompile Include="test_CapitaliseTextTransformation.cpp" />
     <ClCompile Include="test_CensorTextTransformation.cpp" />
+    <ClCompile Include="test_CensorTransformationFactory.cpp" />
     <ClCompile Include="test_CompositeTextTransformation.cpp" />
     <ClCompile Include="test_DecorateTextTransformation.cpp" />
     <ClCompile Include="test_LeftTrimTextTransformation.cpp" />
@@ -164,12 +168,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="catch_amalgamated.hpp" />
+    <ClInclude Include="CensorTransformationFactory.h" />
     <ClInclude Include="CompositeTransformation.h" />
     <ClInclude Include="CyclicTransformationDecorator.h" />
     <ClInclude Include="fakeit.hpp" />
+    <ClInclude Include="HelpLabel.h" />
+    <ClInclude Include="LabelAbstraction.h" />
     <ClInclude Include="ILabel.h" />
     <ClInclude Include="LabelFactory.h" />
-    <ClInclude Include="StringCache.h" />
     <ClInclude Include="ProxyLabel.h" />
     <ClInclude Include="RandomTransformationDecorator.h" />
     <ClInclude Include="TextTransformationDecorator.h" />

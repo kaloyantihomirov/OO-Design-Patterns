@@ -14,15 +14,15 @@ LabelDecoratorBase::LabelDecoratorBase(std::shared_ptr<Label> label)
 }
 
 std::shared_ptr<Label> LabelDecoratorBase::removeDecoratorFrom(
-    std::shared_ptr<Label> label,
+    std::shared_ptr<Label> r,
     std::shared_ptr<LabelDecoratorBase> decoratorToRemove)
 {
-    if (!label)
+    if (!r)
     {
-        return label;
+        return r;
     }
 
-    auto decorator = std::dynamic_pointer_cast<LabelDecoratorBase>(label);
+    auto decorator = std::dynamic_pointer_cast<LabelDecoratorBase>(r);
 
     if (decorator)
     {
@@ -30,12 +30,11 @@ std::shared_ptr<Label> LabelDecoratorBase::removeDecoratorFrom(
     }
     else
     {
-        return label;
+        return r;
     }
 }
 
-//D1->D2->SL
-
+//D2->D1->SL
 std::shared_ptr<Label> LabelDecoratorBase::removeDecorator(
     std::shared_ptr<LabelDecoratorBase> decoratorToRemove)
 {
@@ -54,6 +53,6 @@ std::shared_ptr<Label> LabelDecoratorBase::removeDecorator(
 
         //to ensure that the returned pointer shares the same reference count (control block)
         //as the pointer that originally owns the object (to avoid double deletion or premature deletion)
-        return std::static_pointer_cast<Label>(shared_from_this());
+       return std::static_pointer_cast<Label>(shared_from_this());
     }
 }

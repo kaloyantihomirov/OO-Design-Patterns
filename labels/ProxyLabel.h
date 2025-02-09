@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Label.h"
-#include "SimpleLabel.h"
 
 class ProxyLabel : public ILabel
 {

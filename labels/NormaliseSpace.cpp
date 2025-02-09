@@ -27,3 +27,10 @@ std::string NormaliseSpace::transform(const std::string& text) const
 
 	return result;
 }
+
+bool NormaliseSpace::operator==(const TextTransformation& other) const
+{
+	const NormaliseSpace* ptr = dynamic_cast<const NormaliseSpace*>(&other);
+
+	return ptr;
+}

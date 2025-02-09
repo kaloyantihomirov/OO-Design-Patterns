@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "ProxyLabel.h"
+#include "SimpleLabel.h"
 
 ProxyLabel::ProxyLabel(int timeout) : realLabel(nullptr), requestCount(0), timeout(timeout),
 in(std::cin), out(std::cout)

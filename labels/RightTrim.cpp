@@ -8,3 +8,10 @@ std::string RightTrim::transform(const std::string& text) const
 	while (i > 0 && std::isspace(text[i - 1])) --i;
 	return text.substr(0, i);
 }
+
+bool RightTrim::operator==(const TextTransformation& other) const
+{
+	const RightTrim* ptr = dynamic_cast<const RightTrim*>(&other);
+
+	return ptr;
+}

@@ -12,7 +12,7 @@ public:
 	LabelDecoratorBase(std::shared_ptr<Label> label);
 
 	static std::shared_ptr<Label> removeDecoratorFrom(
-		std::shared_ptr<Label> label,
+		std::shared_ptr<Label> r,
 		std::shared_ptr<LabelDecoratorBase> decoratorToRemove);
 	std::shared_ptr<Label> removeDecorator(std::shared_ptr<LabelDecoratorBase> decoratorToRemove);
 

@@ -34,27 +34,24 @@
     <Filter Include="Testing\Decorator">
       <UniqueIdentifier>{0e44a354-a783-492a-9ba6-cfcbeabbb02c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Label">
+      <UniqueIdentifier>{ee2ec7ec-546f-452c-98d9-0a876c555c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Label">
+      <UniqueIdentifier>{fdc7eee3-6dd6-41ca-875d-18f98055ddab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labels.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleLabel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LabelPrinter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColourRGB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextStyle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RichLabel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextUtil.cpp">
@@ -129,24 +126,36 @@
     <ClCompile Include="test_TextTransformationDecorator.cpp">
       <Filter>Testing\Decorator</Filter>
     </ClCompile>
+    <ClCompile Include="HelpLabel.cpp">
+      <Filter>Source Files\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Source Files\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="LabelAbstraction.cpp">
+      <Filter>Source Files\Label</Filter>
+    </ClCompile>
     <ClCompile Include="ProxyLabel.cpp">
+      <Filter>Source Files\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="RichLabel.cpp">
+      <Filter>Source Files\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleLabel.cpp">
+      <Filter>Source Files\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="LabelFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StringCache.cpp">
+    <ClCompile Include="CensorTransformationFactory.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_CensorTransformationFactory.cpp">
+      <Filter>Testing\TextTransformation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Label.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleLabel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LabelPrinter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RichLabel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ColourRGB.h">
@@ -203,16 +212,31 @@
     <ClInclude Include="fakeit.hpp">
       <Filter>Testing</Filter>
     </ClInclude>
-    <ClInclude Include="ProxyLabel.h">
+    <ClInclude Include="LabelFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringCache.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="HelpLabel.h">
+      <Filter>Header Files\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="LabelAbstraction.h">
+      <Filter>Header Files\Label</Filter>
     </ClInclude>
     <ClInclude Include="ILabel.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Label</Filter>
     </ClInclude>
-    <ClInclude Include="LabelFactory.h">
+    <ClInclude Include="Label.h">
+      <Filter>Header Files\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="ProxyLabel.h">
+      <Filter>Header Files\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="RichLabel.h">
+      <Filter>Header Files\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleLabel.h">
+      <Filter>Header Files\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="CensorTransformationFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
