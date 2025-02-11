@@ -59,4 +59,11 @@ public class DirectoryEntry : FileSystemEntry
             fse.Print();
         }
     }
+
+    public IEnumerable<FileSystemEntry> Children => fileSystemEntries;
+
+    public override void Accept(IVisitor visitor)
+    {
+        visitor.VisitDirectory(this);
+    }
 }

@@ -1,7 +1,7 @@
 ﻿namespace _03.checksum.FileSystem;
 
 //provide interface for the leaf nodes and the composite nodes
-public abstract class FileSystemEntry
+public abstract class FileSystemEntry 
 {
     public virtual void Add(FileSystemEntry fse)
     {
@@ -29,6 +29,11 @@ public abstract class FileSystemEntry
     }
 
     public virtual void Print()
+    {
+        throw new NotSupportedException();
+    }
+
+    public virtual void Accept(IVisitor visitor)
     {
         throw new NotSupportedException();
     }

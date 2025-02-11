@@ -1,28 +1,33 @@
-﻿namespace _03.checksum.FileSystem;
+﻿    namespace _03.checksum.FileSystem;
 
-public class FileEntry : FileSystemEntry
-{
-    private string path;
-    private long sizeInBytes;
-
-    public FileEntry(string path, long sizeInBytes)
+    public class FileEntry : FileSystemEntry
     {
-        this.path = path;
-        this.sizeInBytes = sizeInBytes;
-    }
+        private string path;
+        private long sizeInBytes;
 
-    public override string GetPath()
-    {
-        return path;
-    }
+        public FileEntry(string path, long sizeInBytes)
+        {
+            this.path = path;
+            this.sizeInBytes = sizeInBytes;
+        }
 
-    public override long GetSizeInBytes()
-    {
-        return sizeInBytes;
-    }
+        public override string GetPath()
+        {
+            return path;
+        }
 
-    public override void Print()
-    {
-        Console.WriteLine($"{path} ({sizeInBytes} bytes)");
+        public override long GetSizeInBytes()
+        {
+            return sizeInBytes;
+        }
+
+        public override void Print()
+        {
+            Console.WriteLine($"{path} ({sizeInBytes} bytes)");
+        }
+
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.VisitFile(this);
+        }
     }
-}
