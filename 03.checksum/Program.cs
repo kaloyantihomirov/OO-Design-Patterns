@@ -2,6 +2,7 @@
 using System.Text;
 using System.CommandLine;
 using System.CommandLine.Parsing;
+using _03.checksum.Checksum;
 using _03.checksum.FileSystem;
 
 namespace _03.checksum
@@ -94,12 +95,26 @@ namespace _03.checksum
             // DirectoryInfo di = new DirectoryInfo(@"C:\Users\kkolev\desktop\bcserver Command Prompt.lnk");
             // Console.WriteLine(di.LinkTarget);
 
-            IAbstractDirectoryBuilder builder = new SymLinkAwareDirectoryBuilder();
-            string directoryPath = @"C:\Users\kkolev\desktop\test";
-            builder.StartDirectory(directoryPath);
-            DirectoryEntry de = builder.GetResult();
+            //IAbstractDirectoryBuilder builder = new SymLinkAwareDirectoryBuilder();
+            //string directoryPath = @"C:\Users\kkolev\desktop\test";
+            //builder.StartDirectory(directoryPath);
+            //DirectoryEntry de = builder.GetResult();
 
-            de.Print();
+            //de.Print();
+
+            FileInfo fi = new FileInfo(@"C:\Users\kkolev\Desktop\test\sample.txt");
+            IVisitor v = new ReportWriter(Console.OpenStandardOutput());
+            //v.VisitFile(new FileEntry(fi.FullName, fi.Length));
+            //v.VisitFile(new FileEntry(fi.FullName, fi.Length));
+            //v.VisitDirectory(new DirectoryEntry("C:\\Users\\kkolev\\Desktop\\test"));
+
+            DirectoryEntry de = DirectoryBuildingClient.BuildDirectoryTree(@"C:\Users\kkolev\Downloads\Junction");
+            IAbstractDirectoryBuilder db = new SymLinkAwareDirectoryBuilder();
+            db.StartDirectory(@"C:\Users\kkolev\Downloads\Junction");
+            DirectoryEntry d2 = db.GetResult();
+            v.VisitDirectory(d2);
+
+
 
 
 

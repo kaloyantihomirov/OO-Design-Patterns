@@ -7,7 +7,7 @@ public class HashStreamWriter : AbstractVisitor
     private readonly IChecksumCalculator checksumCalculator;
     private readonly Stream outputStream;
 
-    HashStreamWriter(IChecksumCalculator checksumCalculator, 
+    public HashStreamWriter(IChecksumCalculator checksumCalculator, 
         Stream outputStream)
     {
         this.checksumCalculator = checksumCalculator;
@@ -19,9 +19,7 @@ public class HashStreamWriter : AbstractVisitor
         using FileStream fs = new FileStream(
             file.GetPath(),
             FileMode.Open,
-            FileAccess.Read,
-            FileShare.Read
-        );
+            FileAccess.Read);
 
         string hashHex = checksumCalculator.Calculate(fs);
 
