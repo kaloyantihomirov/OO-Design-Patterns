@@ -12,6 +12,15 @@ namespace _03.checksum.FileSystem;
  * HashStreamWriter -> Md5Calculator -> ProgressReporter
  */ 
 
+//The progress indicator displays progress percentage and estimated time remaining
+// for the entire task (i.e., number of bytes processed so far divided by the number of
+// bytes in all files that need to be processed).
+//In order to calculate the estimated total progress percentage, modify the ProgressReporter class to store the total number of bytes processed and the total time elapsed
+// from the start of the process. Initialize the ProgressReporter with the total number of
+// bytes expected to be read, which should be stored in the root node of the in-memory
+// directory structure. Estimate the time remaining by calculating the average speed of
+// bytes processed per second.
+
 public class HashStreamWriter : AbstractVisitor, ISubject, IObserver
 {
     private readonly IChecksumCalculator checksumCalculator;

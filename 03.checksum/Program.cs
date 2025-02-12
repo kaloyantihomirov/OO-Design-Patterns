@@ -1,8 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Text;
-using System.CommandLine;
-using System.CommandLine.Parsing;
-using _03.checksum.Checksum;
+﻿using _03.checksum.Checksum;
 using _03.checksum.FileSystem;
 using _03.checksum.FileSystem.ChecksumFormatter;
 using _03.checksum.FileSystem.Observers;
@@ -125,7 +121,7 @@ namespace _03.checksum
             DirectoryEntry de = DirectoryEntryHelper.BuildRootDirectoryEntryInMem("C:\\Users\\kkolev\\Downloads\\Junction", false);
             using StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
             HashStreamWriter hsw = new HashStreamWriter(new Md5Calculator(), sw, new XmlChecksumFormatter());
-            ProgressReporter co = new ProgressReporter();
+            ProgressReporter co = new ProgressReporter(de.GetSizeInBytes());
             hsw.RegisterObserver(co);
 
             hsw.VisitDirectory(de);
