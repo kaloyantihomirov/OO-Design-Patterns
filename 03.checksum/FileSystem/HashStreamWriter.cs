@@ -4,15 +4,15 @@ using _03.checksum.FileSystem.Observers;
 
 namespace _03.checksum.FileSystem;
 
-public class HashStreamWriter : AbstractVisitor, ISubject
+//The progress indicator displays the name of the current file and the number of bytes
+// processed so far
+public class HashStreamWriter : AbstractVisitor, ISubject, IObserver
 {
     private readonly IChecksumCalculator checksumCalculator;
     private readonly StreamWriter writer;
     private readonly IChecksumFormatter formatter;
 
     private readonly List<IObserver> observers = new();
-
-    private string lastProcessed = "";
 
     public HashStreamWriter(IChecksumCalculator checksumCalculator, 
         StreamWriter writer,
@@ -21,6 +21,11 @@ public class HashStreamWriter : AbstractVisitor, ISubject
         this.checksumCalculator = checksumCalculator;
         this.writer = writer;
         this.formatter = formatter;
+
+        if (this.checksumCalculator is ISubject calcSubj)
+        {
+            calcSubj.RegisterObserver(this);
+        }
     }
 
     public override void BeforeDirectoryTraversal()
@@ -43,8 +48,7 @@ public class HashStreamWriter : AbstractVisitor, ISubject
         string hashHex = checksumCalculator.Calculate(fs);
 
         formatter.WriteItem(writer, new FileMetadata(file.GetPath(), file.GetSizeInBytes(), hashHex, true));
-        lastProcessed = file.GetPath();
-        NotifyObservers();
+        NotifyObservers(file.GetPath());
     }
 
     public void RegisterObserver(IObserver observer)
@@ -57,11 +61,16 @@ public class HashStreamWriter : AbstractVisitor, ISubject
         this.observers.Remove(observer);
     }
 
-    public void NotifyObservers()
+    public void NotifyObservers(object path)
     {
         foreach (var observer in observers)
         {
-            observer.Update(lastProcessed);
+            observer.Update(this, path);
         }
+    }
+
+    public void Update(ISubject sender, object message)
+    {
+        NotifyObservers(message);
     }
 }

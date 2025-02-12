@@ -2,6 +2,6 @@
 
 public interface IObserver
 {
-    public void Update(string currentFile);
+    public void Update(ISubject sender, object message);
 }
 
