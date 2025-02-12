@@ -4,6 +4,8 @@ using System.CommandLine;
 using System.CommandLine.Parsing;
 using _03.checksum.Checksum;
 using _03.checksum.FileSystem;
+using _03.checksum.FileSystem.ChecksumFormatter;
+using _03.checksum.FileSystem.Observers;
 
 namespace _03.checksum
 {
@@ -102,20 +104,31 @@ namespace _03.checksum
 
             //de.Print();
 
-            FileInfo fi = new FileInfo(@"C:\Users\kkolev\Desktop\test\sample.txt");
-            IVisitor v = new ReportWriter(Console.OpenStandardOutput());
-            //v.VisitFile(new FileEntry(fi.FullName, fi.Length));
-            //v.VisitFile(new FileEntry(fi.FullName, fi.Length));
-            //v.VisitDirectory(new DirectoryEntry("C:\\Users\\kkolev\\Desktop\\test"));
+            //FileInfo fi = new FileInfo(@"C:\Users\kkolev\Desktop\test\sample.txt");
+            //IVisitor v = new ReportWriter(Console.OpenStandardOutput());
+            ////v.VisitFile(new FileEntry(fi.FullName, fi.Length));
+            ////v.VisitFile(new FileEntry(fi.FullName, fi.Length));
+            ////v.VisitDirectory(new DirectoryEntry("C:\\Users\\kkolev\\Desktop\\test"));
 
-            DirectoryEntry de = DirectoryBuildingClient.BuildDirectoryTree(@"C:\Users\kkolev\Downloads\Junction");
-            IAbstractDirectoryBuilder db = new SymLinkAwareDirectoryBuilder();
-            db.StartDirectory(@"C:\Users\kkolev\Downloads\Junction");
-            DirectoryEntry d2 = db.GetResult();
-            v.VisitDirectory(d2);
+            //DirectoryEntry de = DirectoryBuildingClient.BuildDirectoryTree(@"C:\Users\kkolev\Downloads\Junction");
+            //IAbstractDirectoryBuilder db = new SymLinkAwareDirectoryBuilder();
+            //db.StartDirectory(@"C:\Users\kkolev\Downloads\Junction");
+            //DirectoryEntry d2 = db.GetResult();
+            //v.VisitDirectory(d2);
 
+            //DirectoryEntry de = DirectoryEntryHelper.BuildRootDirectoryEntryInMem("C:\\Users\\kkolev\\Downloads\\Junction", false);
+            //using StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
+            //IVisitor visitor = new HashStreamWriter(new Md5Calculator(), sw, new XmlChecksumFormatter());
 
+            //visitor.VisitDirectory(de);
 
+            DirectoryEntry de = DirectoryEntryHelper.BuildRootDirectoryEntryInMem("C:\\Users\\kkolev\\Downloads\\Junction", false);
+            using StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
+            HashStreamWriter hsw = new HashStreamWriter(new Md5Calculator(), sw, new XmlChecksumFormatter());
+            ProgressReporter co = new ProgressReporter();
+            hsw.RegisterObserver(co);
+
+            hsw.VisitDirectory(de);
 
 
             //DirectoryEntry de = DirectoryBuildingClient.BuildDirectoryTree(@"C:\Users\kkolev\desktop\messages.csv");
