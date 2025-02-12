@@ -48,7 +48,6 @@ namespace _03.checksum.FileSystem.Observers
                         $"| ETA: {TimeSpan.FromSeconds(estimatedSecRemaining):hh\\:mm\\:ss\\.fff}"
                     );
 
-                   // Console.Write($"\rProcessing {currentFile}... {bytesProcessedSoFar} byte(s) read");
                     break;
                 default:
                     Console.WriteLine($"\n[DEBUG] Unknown message type: {message?.GetType().Name} from {sender.GetType().Name}");
