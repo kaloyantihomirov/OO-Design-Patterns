@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace _03.checksum.FileSystem.Observers
+﻿namespace _03.checksum.FileSystem.Observers
 {
     public class ProgressReporter : IObserver
     {
@@ -12,13 +10,13 @@ namespace _03.checksum.FileSystem.Observers
             switch (message)
             {
                 case string fileName:
+                    if(currentFile != "(none)") Console.WriteLine();
                     currentFile = fileName;
                     bytesReadSoFar = 0;
-                 //   Console.WriteLine();
-                 //   Console.WriteLine($"Now processing: {currentFile}...");
                     break;
                 case long chunkBytesSoFar:
                     bytesReadSoFar = chunkBytesSoFar;
+                    Thread.Sleep(10);
                     Console.Write($"\rProcessing {currentFile}... {bytesReadSoFar} byte(s) read");
                     break;
                 default:
