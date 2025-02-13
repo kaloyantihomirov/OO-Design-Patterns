@@ -2,7 +2,8 @@
 
 public abstract class AbstractVisitor : IVisitor
 {
-    private bool firstDirectory = true;
+    private bool executedBeforeDirectory = false;
+    protected bool firstDirectory = true;
 
     protected HashSet<string> visitedFiles = new HashSet<string>();
     protected bool stopped = false;
@@ -28,9 +29,14 @@ public abstract class AbstractVisitor : IVisitor
 
         bool wasFirst = firstDirectory;
 
-        if (firstDirectory)
+        if (firstDirectory && !executedBeforeDirectory)
         {
             BeforeDirectoryTraversal();
+            executedBeforeDirectory = true;
+        }
+
+        if (firstDirectory)
+        {
             firstDirectory = false;
         }
 

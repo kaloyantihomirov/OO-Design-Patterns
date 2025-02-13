@@ -17,15 +17,13 @@ namespace _03.checksum
 
             ProgressReporter po = new ProgressReporter(de.GetSizeInBytes());
 
-            PauseManager pm = new PauseManager();
-
             HashStreamWriter hsw = new HashStreamWriter(new Md5Calculator(), sw, new XmlChecksumFormatter());
+            PauseManager pm = new PauseManager(hsw, po);
+
             pm.RegisterObserver(hsw);
             hsw.RegisterObserver(po);
+            hsw.RegisterObserver(pm);
 
-            Caretaker caretaker = new Caretaker(hsw, po);
-            hsw.RegisterObserver(caretaker);
-            po.RegisterObserver(caretaker);
 
             Thread scanThread = new Thread(() =>
             {
@@ -46,7 +44,6 @@ namespace _03.checksum
                         break;
                     case ConsoleKey.S:
                         pm.RequestResume();
-                        caretaker.Restore();
                         if (!scanThread.IsAlive)
                         {
                             scanThread = new Thread(() =>
@@ -58,8 +55,6 @@ namespace _03.checksum
                         break;
                 }
             }
-
-
         }
     }
 }

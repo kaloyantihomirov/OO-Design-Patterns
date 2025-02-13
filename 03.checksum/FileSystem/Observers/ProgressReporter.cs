@@ -8,12 +8,20 @@ namespace _03.checksum.FileSystem.Observers
         private long bytesProcessedSoFar = 0;
         private long bytesToProcess = 0;
         private long currFileProcessedBytes = 0;
+
         private Stopwatch sw;
 
         private readonly List<IObserver> observers = new List<IObserver>();
 
-        public ProgressReporter(long bytesToProcess)
+        private long elapsedMs = 0;
+
+        private TimeSpan GetElapsed()
         {
+            return TimeSpan.FromMilliseconds(elapsedMs + sw.ElapsedMilliseconds);
+        }
+
+        public ProgressReporter(long bytesToProcess)
+        {   
             this.bytesToProcess = bytesToProcess;
             sw = Stopwatch.StartNew();
         }
@@ -23,20 +31,8 @@ namespace _03.checksum.FileSystem.Observers
             switch (message)
             {
                 case string fileName:
-                    if (fileName == "PAUSE") return;
-                    if (fileName == "PAUSE_FINISHED_FILE_PROCESSING")
-                    {
-                        ProgressReporterMemento prm = CreateMemento();
-                        NotifyObservers(prm);
-                        return;
-                    }
-
                     if(currentFile != "(none)") Console.WriteLine();
-                    if (fileName == "END")
-                    {
-                        sw.Stop();
-                        Console.Write("\n");
-                    }
+
                     currentFile = fileName;
                     currFileProcessedBytes = 0;
                     break;
@@ -47,7 +43,7 @@ namespace _03.checksum.FileSystem.Observers
                     currFileProcessedBytes = chunkBytesSoFar;
                     bytesProcessedSoFar += delta;
 
-                    var elapsed = sw.Elapsed;
+                    var elapsed = GetElapsed();
                     double bytesPerSecond = bytesProcessedSoFar / elapsed.TotalSeconds;
                     double percent = (double)bytesProcessedSoFar / bytesToProcess * 100.0;
                     double remainingBytes = bytesToProcess - bytesProcessedSoFar;
@@ -63,24 +59,36 @@ namespace _03.checksum.FileSystem.Observers
                     );
 
                     break;
-                default:
-                    //Console.WriteLine($"\n[DEBUG] Unknown message type: {message?.GetType().Name} from {sender.GetType().Name}");
-                    //throw new ArgumentException($"Unknown message type: {message?.GetType().Name} from {sender.GetType().Name}");
+
+                case AllFilesProcessedMsg _:
+                    Console.WriteLine();
+                    break;
+
+                case UserHasRequestedPauseAfterCurrFileProcessedMsg pauseAfterCurrFileProcessed:
+                    sw.Stop();
+                    FillMementoWithMyValues(pauseAfterCurrFileProcessed.Memento);
+                    Console.WriteLine();
                     break;
             }
         }
 
-        public ProgressReporterMemento CreateMemento()
+        public void FillMementoWithMyValues(SharedMemento sm)
         {
-            return new ProgressReporterMemento("(none)", bytesProcessedSoFar, bytesToProcess, currFileProcessedBytes, sw.ElapsedMilliseconds);
+            //return new ProgressReporterMemento(bytesProcessedSoFar, bytesToProcess, GetElapsed().Milliseconds);
+            sm.ElapsedMilliseconds = elapsedMs;
+            sm.BytesProcessedSoFar = bytesProcessedSoFar;
+            sm.BytesToProcess = bytesToProcess;
         }
 
-        public void RestoreFromMemento(ProgressReporterMemento memento)
+        public void RestoreFromMemento(SharedMemento memento)
         {
-            currentFile = memento.CurrentFile;
+            currentFile = "(none)";
             bytesProcessedSoFar = memento.BytesProcessedSoFar;
             bytesToProcess = memento.BytesToProcess;
             currFileProcessedBytes = 0;
+            elapsedMs = memento.ElapsedMilliseconds;
+            sw.Reset();
+            sw.Start();
         }
 
         public void RegisterObserver(IObserver observer)
