@@ -60,7 +60,7 @@ public class SymLinkAwareDirectoryBuilder : IAbstractDirectoryBuilder
                 continue;
             }
 
-            //TODO: Delegate the responsibility for checkin if a file is a link  to 
+            //TODO: Delegate the responsibility for checking if a file is a link  to 
             //ShortcutHelper class
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                 && fi.Extension.Equals(".lnk", StringComparison.OrdinalIgnoreCase))
@@ -174,5 +174,4 @@ public class SymLinkAwareDirectoryBuilder : IAbstractDirectoryBuilder
 
         return root;
     }
-
 }

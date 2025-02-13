@@ -1,11 +1,11 @@
-﻿namespace _03.checksum.Checksum;
+﻿using System.Security.Cryptography;
 
-public class Sha1Calculator : IChecksumCalculator
+namespace _03.checksum.Checksum;
+
+public class Sha1Calculator : ChecksumCalculatorBase
 {
-    public string Calculate(Stream inputStream)
+    protected override HashAlgorithm GetHashAlgorithm()
     {
-        using var sha1 = System.Security.Cryptography.SHA1.Create();
-        var hash = sha1.ComputeHash(inputStream);
-        return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        return SHA1.Create();
     }
 }

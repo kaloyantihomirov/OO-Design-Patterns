@@ -4,23 +4,12 @@ using _03.checksum.FileSystem.Observers;
 
 namespace _03.checksum.FileSystem;
 
-
 /* Когато Md5Calculator-ът прочете X байта, уведомява за това слушателите, 
  * прикачени към него (в частност, HashStreamWriter е слушател на Md5Calculator и бива уведомен за настъпилата промяна)
  * Когато HashStreamWriter обработва нов файл, уведомява слушателите си за
  * името на този файл.
  * HashStreamWriter -> Md5Calculator -> ProgressReporter
  */ 
-
-//The progress indicator displays progress percentage and estimated time remaining
-// for the entire task (i.e., number of bytes processed so far divided by the number of
-// bytes in all files that need to be processed).
-//In order to calculate the estimated total progress percentage, modify the ProgressReporter class to store the total number of bytes processed and the total time elapsed
-// from the start of the process. Initialize the ProgressReporter with the total number of
-// bytes expected to be read, which should be stored in the root node of the in-memory
-// directory structure. Estimate the time remaining by calculating the average speed of
-// bytes processed per second.
-
 public class HashStreamWriter : AbstractVisitor, ISubject, IObserver
 {
     private readonly IChecksumCalculator checksumCalculator;
@@ -65,6 +54,12 @@ public class HashStreamWriter : AbstractVisitor, ISubject, IObserver
 
         string hashHex = checksumCalculator.Calculate(fs);
 
+        if (stopped)
+        {
+            NotifyObservers("PAUSE_FINISHED_FILE_PROCESSING");
+            return;
+        }
+
         formatter.WriteItem(writer, new FileMetadata(file.GetPath(), file.GetSizeInBytes(), hashHex, true));
     }
 
@@ -104,6 +99,35 @@ public class HashStreamWriter : AbstractVisitor, ISubject, IObserver
         на неговите слушатели.
         */
 
+        if (sender is PauseManager pm)
+        {
+            if (message is string messageStr)
+            {
+                switch (messageStr)
+                {
+                    case "PAUSE":
+                        this.stopped = true;
+                        HashStreamWriterMemento hswm = CreateMemento();
+                        NotifyObservers(hswm);
+                        break;
+                    case "RESUME":
+                        this.stopped = false;
+                        break;
+
+                }
+            }
+        }
+
         NotifyObservers(message);
+    }
+
+    public HashStreamWriterMemento CreateMemento()
+    {
+        return new HashStreamWriterMemento(this.visitedFiles);
+    }
+
+    public void RestoreFromMemento(HashStreamWriterMemento memento)
+    {
+        this.visitedFiles = memento.VisitedFiles;
     }
 }
