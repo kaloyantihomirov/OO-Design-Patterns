@@ -2,7 +2,7 @@
 
 public class SharedMemento
 {
-    private HashSet<string> visitedFiles;
+    private HashSet<string> visitedFiles ;
 
     public HashSet<string> VisitedFiles
     {

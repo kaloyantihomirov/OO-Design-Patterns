@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.checksum", "03.checksum.csproj", "{29B18F89-D743-46DE-AE63-94FB420E42AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.checksum.Tests", "..\03.checksum.Tests\03.checksum.Tests.csproj", "{827BC908-AF0A-4A85-A3EE-93F2E7898AAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{29B18F89-D743-46DE-AE63-94FB420E42AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29B18F89-D743-46DE-AE63-94FB420E42AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29B18F89-D743-46DE-AE63-94FB420E42AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{827BC908-AF0A-4A85-A3EE-93F2E7898AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827BC908-AF0A-4A85-A3EE-93F2E7898AAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827BC908-AF0A-4A85-A3EE-93F2E7898AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827BC908-AF0A-4A85-A3EE-93F2E7898AAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
